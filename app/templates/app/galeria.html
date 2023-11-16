@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería</title>
+    <style>
+        /* Agrega aquí estilos específicos para la galería si es necesario */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Galería</h1>
+    </header>
+
+    <section>
+        <p>Explora nuestra galería de imágenes:</p>
+        <!-- Agrega aquí las imágenes o contenido de la galería -->
+        {% load static %}
+        <img src="{% static "myapp/imagen1.jpg" %}" alt="Imagen 1">
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Galería</p>
+    </footer>
+</body>
+</html>
