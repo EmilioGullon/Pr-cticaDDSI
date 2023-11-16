@@ -75,21 +75,10 @@ WSGI_APPLICATION = 'mi_proyecto.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'practbd.oracle0.ugr.es',  # Nombre de la base de datos
-        'USER': 'x0099927',  # Nombre de usuario
-        'PASSWORD': 'x0099927',  # Contraseña
-        'HOST': 'oracle0.ugr.es',  # Host del servidor de la base de datos
-        'PORT': '1521',  # Puerto del servidor
-        'OPTIONS': {
-            'threaded': True,
-            'use_returning_into': False,
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-
 
 
 # Password validation
