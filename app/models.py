@@ -8,6 +8,9 @@ class Empleado(models.Model):
     Apellido1E = models.CharField(max_length=20, null=False)
     Apellido2E = models.CharField(max_length=20, null=False)
     TelefonoE = models.IntegerField(null=False, unique=True)
+    
+    def __str__(self):
+        return self.nombre
 
 class Gasto(models.Model):
     Num_factura = models.CharField(max_length=20, primary_key=True)
