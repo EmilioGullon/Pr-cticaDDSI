@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Empleado, Socio
+from .models import Empleado, Socio, Anuncio
 
 # Create your views here.
 def home(request, username):
@@ -64,8 +64,8 @@ def agregar_anuncio(request):
         desc = request.POST['descripcion']
         loc = request.POST['localizacion']
         try:
-            Socio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
-            return redirect('listar_acuncios')
+            Anuncio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
+            return redirect('listar_anuncios')
         except Exception as e:
             # Manejar el error aquí, si es necesario
             print(f"Error al agregar anuncio: {e}")
