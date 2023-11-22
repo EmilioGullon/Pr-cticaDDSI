@@ -18,13 +18,13 @@ def listar_empleados(request):
 
 def agregar_empleado(request):
     if request.method == 'POST':
-        DNIE = request.POST['dni']
-        NombreE = request.POST['nombre']
-        Apellido1E = request.POST['Primero']
-        Apellido2E = request.POST['Segundo']
-        TelefonoE = request.POST['Telefono'] 
+        dni = request.POST['dni']
+        nombre = request.POST['nombre']
+        apellido1 = request.POST['Primero']
+        apellido2 = request.POST['Segundo']
+        telefono = request.POST['Telefono'] 
         try:
-            Empleado.objects.create(nombre=NombreE, apellido1=Apellido1E, apellido2=Apellido2E, telefono=TelefonoE)
+            Empleado.objects.create(DNIE=dni, NombreE=nombre, Apellido1E=apellido1, Apellido2E=apellido2, TelefonoE=telefono)
             return redirect('listar_empleados')
         except Exception as e:
             # Manejar el error aquí, si es necesario
