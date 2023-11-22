@@ -52,3 +52,7 @@ def agregar_socio(request):
             return render(request, 'app/agregar_socio.html')
 
     return render(request, 'app/agregar_socio.html')
+
+def listar_socios(request):
+    socios = Socio.objects.all()
+    return render(request, 'app/listar_socios.html', {'socios': socios})
