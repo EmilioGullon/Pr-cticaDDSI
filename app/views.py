@@ -18,13 +18,13 @@ def listar_empleados(request):
 
 def agregar_empleado(request):
     if request.method == 'POST':
-        DNIE = request.POST['dni']
-        NombreE = request.POST['nombre']
-        Apellido1E = request.POST['Primero']
-        Apellido2E = request.POST['Segundo']
-        TelefonoE = request.POST['Telefono'] 
+        dni = request.POST['dni']
+        nombre = request.POST['nombre']
+        apellido1 = request.POST['Primero']
+        apellido2 = request.POST['Segundo']
+        telefono = request.POST['Telefono'] 
         try:
-            Empleado.objects.create(nombre=NombreE, apellido1=Apellido1E, apellido2=Apellido2E, telefono=TelefonoE)
+            Empleado.objects.create(DNIE=dni, NombreE=nombre, Apellido1E=apellido1, Apellido2E=apellido2, TelefonoE=telefono)
             return redirect('listar_empleados')
         except Exception as e:
             # Manejar el error aquí, si es necesario
@@ -45,9 +45,9 @@ def agregar_socio(request):
         try:
             Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
             return redirect('listar_socios')
-        except Exception as s:
+        except Exception as e:
             # Manejar el error aquí, si es necesario
-            print(f"Error al agregar socio: {s}")
+            print(f"Error al agregar socio: {e}")
             # Renderizar la misma página en caso de error
             return render(request, 'app/agregar_socio.html')
 
@@ -56,3 +56,24 @@ def agregar_socio(request):
 def listar_socios(request):
     socios = Socio.objects.all()
     return render(request, 'app/listar_socios.html', {'socios': socios})
+
+def agregar_anuncio(request):
+    if request.method == 'POST':
+        codigo = request.POST['codigo']
+        tipo = request.POST['tipo']
+        desc = request.POST['descripcion']
+        loc = request.POST['localizacion']
+        try:
+            Socio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
+            return redirect('listar_acuncios')
+        except Exception as e:
+            # Manejar el error aquí, si es necesario
+            print(f"Error al agregar anuncio: {e}")
+            # Renderizar la misma página en caso de error
+            return render(request, 'app/agregar_anuncio.html')
+
+    return render(request, 'app/agregar_anuncio.html')
+
+def listar_anuncios(request):
+    anuncios = Anuncio.objects.all()
+    return render(request, 'app/listar_anuncios.html', {'anuncios': anuncios})
