@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Movimientos</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            margin: 0.5em 0;
+            padding: 1em;
+            background-color: #fff;
+        }
+
+        strong {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Movimientos</h1>
+    <ul>
+        {% for movimiento in movimientos %}
+            <li>
+                {% if movimiento|instanceof:"Gasto" %}
+                    <strong>Gasto:</strong> {{ movimiento.Num_factura }} - {{ movimiento.Receptor }} - {{ movimiento.TipoG }} - {{ movimiento.CantG }}
+                {% else %}
+                    <strong>Ingreso:</strong> {{ movimiento.Ref_pago }} - {{ movimiento.Emisor }} - {{ movimiento.TipoI }} - {{ movimiento.CantI }}
+                {% endif %}
+            </li>
+            <!-- Agrega más campos según tus modelos -->
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -77,3 +77,12 @@ def agregar_anuncio(request):
 def listar_anuncios(request):
     anuncios = Anuncio.objects.all()
     return render(request, 'app/listar_anuncios.html', {'anuncios': anuncios})
+
+def enlace_principal(request):
+    return render(request, 'enlace_principal.html')
+
+def listas(request):
+    return render(request, 'listas.html')
+
+def agregar(request):
+    return render(request, 'agregar.html')
