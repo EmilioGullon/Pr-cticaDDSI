@@ -45,9 +45,9 @@ def agregar_socio(request):
         try:
             Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
             return redirect('listar_socios')
-        except Exception as s:
+        except Exception as e:
             # Manejar el error aquí, si es necesario
-            print(f"Error al agregar socio: {s}")
+            print(f"Error al agregar socio: {e}")
             # Renderizar la misma página en caso de error
             return render(request, 'app/agregar_socio.html')
 
@@ -56,3 +56,24 @@ def agregar_socio(request):
 def listar_socios(request):
     socios = Socio.objects.all()
     return render(request, 'app/listar_socios.html', {'socios': socios})
+
+def agregar_anuncio(request):
+    if request.method == 'POST':
+        codigo = request.POST['codigo']
+        tipo = request.POST['tipo']
+        desc = request.POST['descripcion']
+        loc = request.POST['localizacion']
+        try:
+            Socio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
+            return redirect('listar_acuncios')
+        except Exception as e:
+            # Manejar el error aquí, si es necesario
+            print(f"Error al agregar anuncio: {e}")
+            # Renderizar la misma página en caso de error
+            return render(request, 'app/agregar_anuncio.html')
+
+    return render(request, 'app/agregar_anuncio.html')
+
+def listar_anuncios(request):
+    anuncios = Anuncio.objects.all()
+    return render(request, 'app/listar_anuncios.html', {'anuncios': anuncios})
