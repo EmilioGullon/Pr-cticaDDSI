@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Socios</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info {
+            flex: 2;
+            margin-right: 20px;
+        }
+
+        .infoadicional {
+            flex: 1;
+            text-align: right;
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listado de Socios</h1>
+    <ul>
+        {% for socio in socios %}
+            <li>
+                <div class="info">
+                    <h2>{{ socio.NombreS }} {{ socio.Apellido1S }} {{ socio.Apellido2S }}</h2>
+                </div>
+                <div class="infoadicional">
+                    <p>Teléfono: {{ socio.TelefonoS }}</p><p>E-Mail: {{ socio.E_mailS }}</p> <p> DNI: {{ socio.DNIS }}</p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
