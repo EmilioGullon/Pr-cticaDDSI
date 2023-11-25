@@ -58,8 +58,19 @@ class Nomina_tiene(models.Model):
     Empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, null=False)  # Es nulo devido a que no puede existir nomina sin empleado
 
 class Genera(models.Model):
-    Nomina = models.ForeignKey(Nomina_tiene, on_delete=models.CASCADE)
+    Nomina = models.OneToOneField(Nomina_tiene, on_delete=models.CASCADE, primary_key=True)
     Num_factura = models.IntegerField(unique=True, null=False)
     Fecha = models.DateField(null=False)
     class Meta:
         unique_together = ('Nomina', 'Num_factura', 'Fecha')
+
+class Conlleva(models.Model):
+    Num_factura = models.IntegerField(unique=True)
+    Producto = models.OneToOneField(Producto, on_delete=models.CASCADE, primary_key=True)
+    Fecha = models.DateField()
+
+    def __str__(self):
+        return f"{self.Num_factura} - {self.Producto} - {self.Fecha}"
+
+    class Meta:
+        unique_together = ('Num_factura', 'Producto', 'Fecha')
