@@ -24,6 +24,8 @@ class Producto(models.Model):
     DescripcionP = models.CharField(max_length=320, null=False)
     Precio = models.DecimalField(max_digits=4, decimal_places=2, null=False, validators=[MinValueValidator(0.01)])
 
+    Gasto = models.OneToOneField(Gasto, on_delete=models.CASCADE, null=False, blank=False)
+
 class Anuncio(models.Model):
     CodigoA = models.CharField(max_length=9, primary_key=True)
     TipoA = models.CharField(max_length=20, null=False)
@@ -49,6 +51,8 @@ class Almacen(models.Model):
     NombreA = models.CharField(max_length=20, null=False)
     Direccion = models.CharField(max_length=40, null=False, unique=True)
     Provincia = models.CharField(max_length=10, null=False)
+
+    Productos = models.ManyToManyField(Producto, through='Contiene')
     
 class Nomina_tiene(models.Model):
     Nomina = models.BigIntegerField(primary_key=True)
@@ -64,13 +68,11 @@ class Genera(models.Model):
     class Meta:
         unique_together = ('Nomina', 'Num_factura', 'Fecha')
 
-class Conlleva(models.Model):
-    Num_factura = models.IntegerField(unique=True)
-    Producto = models.OneToOneField(Producto, on_delete=models.CASCADE, primary_key=True)
-    Fecha = models.DateField()
-
-    def __str__(self):
-        return f"{self.Num_factura} - {self.Producto} - {self.Fecha}"
+class Contiene(models.Model):
+    Alm = models.ForeignKey(Almacen, on_delete=models.CASCADE)
+    Prod = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    CantidadP = models.IntegerField(default=1)
 
     class Meta:
-        unique_together = ('Num_factura', 'Producto', 'Fecha')
+        unique_together = ('Prod', 'Alm')
+
