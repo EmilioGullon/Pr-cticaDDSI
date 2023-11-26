@@ -140,6 +140,13 @@
             <div class="button-container">
                 <a href="agregar_socio" class="button">Agregar</a>
             </div>
+            <div>
+                <form method="post" action="{% url 'buscar_socio' %}">
+                    {% csrf_token %}
+                    <input type="text" name="dni" required>
+                    <input type="submit" value="Buscar">
+                </form>
+            </div>
         </div>
 
         <div class="box">

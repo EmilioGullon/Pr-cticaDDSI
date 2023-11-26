@@ -72,11 +72,26 @@ def eliminar_anuncio(request, CodigoA):
     anuncio.delete()
     return redirect('ListaMarketing')
 
-def buscar_socio(request, DNIS):
-    socio = get_object_or_404(Socio, DNIS=DNIS)
-    return render(request, 'marketing_clientes/socios_anuncio.html', {'socio' : socio})
+def buscar_socio(request):
+    if request.method == 'POST':
+        dnis = request.POST.get('dni')
+        try:
+            socio = Socio.objects.get(DNIS=dnis)
+            # Redirige a la página de detalle del socio
+            return redirect('mostrar_socio', DNIS=socio.DNIS)
+        except Socio.DoesNotExist:
+            print("No se encontró ningún socio con el DNI proporcionado.")
+            return redirect('ListaMarketing')
+    else:
+        # Manejar el caso en que no se haya enviado un formulario
+        return render(request, 'marketing_clientes/tu_template.html')
 
-def buscar_anuncio(request, CodigoA):
+def mostrar_socio(request, DNIS):
+    socio = get_object_or_404(Socio, DNIS=DNIS)
+    return render(request, 'marketing_clientes/mostrar_socio.html', {'socio': socio})
+
+def buscar_anuncio(request):
+    CodigoA = request.POST.get('codigo')
     anuncio = get_object_or_404(Anuncio, CodigoA=CodigoA)
     return render(request, 'marketing_clientes/datos_anuncio.html', {'anuncio' : anuncio})
 
