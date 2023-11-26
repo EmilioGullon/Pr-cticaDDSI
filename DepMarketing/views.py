@@ -84,16 +84,29 @@ def buscar_socio(request):
             return redirect('ListaMarketing')
     else:
         # Manejar el caso en que no se haya enviado un formulario
-        return render(request, 'marketing_clientes/tu_template.html')
+        return render(request, 'ListaMarketing')
 
 def mostrar_socio(request, DNIS):
     socio = get_object_or_404(Socio, DNIS=DNIS)
     return render(request, 'marketing_clientes/mostrar_socio.html', {'socio': socio})
 
 def buscar_anuncio(request):
-    CodigoA = request.POST.get('codigo')
+    if request.method == 'POST':
+        codigoa = request.POST.get('codigo')
+        try:
+            anuncio = Anuncio.objects.get(CodigoA=codigoa)
+            # Redirige a la página de detalle del socio
+            return redirect('mostrar_anuncio', CodigoA=anuncio.CodigoA)
+        except Anuncio.DoesNotExist:
+            print("No se encontró ningún anuncio con el código proporcionado.")
+            return redirect('ListaMarketing')
+    else:
+        # Manejar el caso en que no se haya enviado un formulario
+        return render(request, 'ListaMarketing')
+
+def mostrar_anuncio(request, CodigoA):
     anuncio = get_object_or_404(Anuncio, CodigoA=CodigoA)
-    return render(request, 'marketing_clientes/datos_anuncio.html', {'anuncio' : anuncio})
+    return render(request, 'marketing_clientes/mostrar_anuncio.html', {'anuncio': anuncio})
 
 def modificar_socio(request, DNIS, nuevos_datos):
     socio = get_object_or_404(Socio, DNIS=DNIS)
