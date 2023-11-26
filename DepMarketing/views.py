@@ -108,9 +108,43 @@ def mostrar_anuncio(request, CodigoA):
     anuncio = get_object_or_404(Anuncio, CodigoA=CodigoA)
     return render(request, 'marketing_clientes/mostrar_anuncio.html', {'anuncio': anuncio})
 
-def modificar_socio(request, DNIS, nuevos_datos):
-    socio = get_object_or_404(Socio, DNIS=DNIS)
-    for atributo, nuevo_valor in nuevos_datos.items():
-        setattr(socio, atributo, nuevo_valor)
-    socio.save()
-    return redirect('ListaMarketing')
+def modificar_socio(request, DNIS):
+    
+    sociomod = get_object_or_404(Socio, DNIS=DNIS)
+
+    if request.method == 'POST':
+        nombren = request.POST.get('nombre', '')
+        primeran = request.POST.get('Primero', '')
+        segundoan = request.POST.get('Segundo', '')
+        telefonon = request.POST.get('Telefono', '')
+        emailn = request.POST.get('E-mail', '')
+        
+        try:
+            if(nombren):
+                sociomod.NombreS = nombren
+            
+            if(primeran):
+                sociomod.Apellido1S = primeran
+            
+            if(segundoan):
+                sociomod.Apellido2S = segundoan
+            
+            if(telefonon):
+                sociomod.TelefonoS = telefonon
+            
+            if(emailn):
+                sociomod.E_mailS = emailn
+
+            sociomod.save()
+
+            return redirect('modificar_socio')  # Ajusta esto también
+
+        except Exception as e:
+        
+            # Manejar el error aquí, si es necesario
+            print(f"Error al modificar socio: {e}")
+            # Renderizar la misma página en caso de error
+            return render(request, 'marketing_clientes/mostrar_socio.html')
+    
+
+    return render(request, 'marketing_clientes/modificar_socio.html', {'socio': sociomod})
