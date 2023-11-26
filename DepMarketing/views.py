@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView
-from app.models import Socio, Anuncio
+from app.models import Socio, Anuncio, Producto
 from itertools import chain
 # Create your views here.
 
@@ -43,9 +43,13 @@ def agregar_anuncio(request):
         tipo = request.POST['tipo']
         desc = request.POST['descripcion']
         loc = request.POST['localizacion']
+        producto = request.POST['producto']
         try:
-            Anuncio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
+            nuevo_anuncio = Anuncio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
+            producto = get_object_or_404(Producto, Prod=producto)
+            nuevo_anuncio.Producto.add(producto)
             return redirect('ListaMarketing')
+        
         except Exception as e:
             # Manejar el error aquí, si es necesario
             print(f"Error al agregar anuncio: {e}")
@@ -66,4 +70,19 @@ def eliminar_socio(request, DNIS):
 def eliminar_anuncio(request, CodigoA):
     anuncio = get_object_or_404(Anuncio, CodigoA=CodigoA)
     anuncio.delete()
+    return redirect('ListaMarketing')
+
+def buscar_socio(request, DNIS):
+    socio = get_object_or_404(Socio, DNIS=DNIS)
+    return render(request, 'marketing_clientes/socios_anuncio.html', {'socio' : socio})
+
+def buscar_anuncio(request, CodigoA):
+    anuncio = get_object_or_404(Anuncio, CodigoA=CodigoA)
+    return render(request, 'marketing_clientes/datos_anuncio.html', {'anuncio' : anuncio})
+
+def modificar_socio(request, DNIS, nuevos_datos):
+    socio = get_object_or_404(Socio, DNIS=DNIS)
+    for atributo, nuevo_valor in nuevos_datos.items():
+        setattr(socio, atributo, nuevo_valor)
+    socio.save()
     return redirect('ListaMarketing')
