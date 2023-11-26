@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ListaMarketing,agregar_socio, eliminar_socio, buscar_socio, mostrar_socio, agregar_anuncio, eliminar_anuncio
+from .views import ListaMarketing,agregar_socio, eliminar_socio, buscar_socio, mostrar_socio, buscar_anuncio, mostrar_anuncio, agregar_anuncio, eliminar_anuncio
 
 urlpatterns = [
     path('', ListaMarketing.as_view(), name= 'ListaMarketing'),
@@ -7,6 +7,8 @@ urlpatterns = [
     path('eliminar_socio/<str:DNIS>/', eliminar_socio, name='eliminar_socio'),
     path('buscar_socio', buscar_socio, name='buscar_socio'),
     path('mostrar_socio/<str:DNIS>/', mostrar_socio, name='mostrar_socio'),
+    path('buscar_anuncio', buscar_anuncio, name='buscar_anuncio'),
+    path('mostrar_anuncio/<str:CodigoA>/', mostrar_anuncio, name='mostrar_anuncio'),
     path('agregar_anuncio', agregar_anuncio, name = 'agregar_anuncio'),
     path('eliminar_anuncio/<str:CodigoA>/', eliminar_anuncio, name='eliminar_anuncio')
 ]

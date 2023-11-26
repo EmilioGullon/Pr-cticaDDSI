@@ -32,7 +32,7 @@ class Anuncio(models.Model):
     DescripcionA = models.CharField(max_length=100, null=False)
     LocalizacionA = models.CharField(max_length=20, null=False, unique=True)
 
-    Producto = models.ManyToManyField(Producto)
+    #Producto = models.ManyToManyField(Producto)
 
 class Socio(models.Model):
     DNIS = models.CharField(max_length=9, primary_key=True)
