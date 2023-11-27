@@ -5,6 +5,7 @@
 <p>E-Mail: {{ socio.E_mailS }}</p>
 <p>DNI: {{ socio.DNIS }}</p>
 
+<h2>Modificar Socio</h2>
 <form method="post" action="{% url 'modificar_socio' DNIS=socio.DNIS %}">
     {% csrf_token %}
     <label for="nombre">Nombre:</label>

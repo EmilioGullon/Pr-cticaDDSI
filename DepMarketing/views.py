@@ -137,7 +137,7 @@ def modificar_socio(request, DNIS):
 
             sociomod.save()
 
-            return redirect('modificar_socio')  # Ajusta esto también
+            return render(request, 'marketing_clientes/mostrar_socio.html', {'socio': sociomod})
 
         except Exception as e:
         
@@ -148,3 +148,40 @@ def modificar_socio(request, DNIS):
     
 
     return render(request, 'marketing_clientes/modificar_socio.html', {'socio': sociomod})
+
+def modificar_anuncio(request, CodigoA):
+    
+    anunciomod = get_object_or_404(Anuncio, CodigoA=CodigoA)
+
+    if request.method == 'POST':
+        tipon = request.POST.get('tipo', '')
+        descn = request.POST.get('descripcion', '')
+        codigon = request.POST.get('codigo', '')
+        locn = request.POST.get('localizacion', '')
+        
+        try:
+            if(tipon):
+                anunciomod.TipoA = tipon
+            
+            if(descn):
+                anunciomod.DescripcionA = descn
+            
+            if(codigon):
+                anunciomod.CodigoA = codigon
+            
+            if(locn):
+                anunciomod.LocalizacionA = locn
+
+            anunciomod.save()
+
+            return render(request, 'marketing_clientes/mostrar_anuncio.html', {'anuncio': anunciomod})
+
+        except Exception as e:
+        
+            # Manejar el error aquí, si es necesario
+            print(f"Error al modificar anuncio: {e}")
+            # Renderizar la misma página en caso de error
+            return render(request, 'marketing_clientes/mostrar_anuncio.html')
+    
+
+    return render(request, 'marketing_clientes/modificar_anuncio.html', {'anuncio': anunciomod})
