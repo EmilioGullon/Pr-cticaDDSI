@@ -4,3 +4,19 @@
 <p>Teléfono: {{ socio.TelefonoS }}</p>
 <p>E-Mail: {{ socio.E_mailS }}</p>
 <p>DNI: {{ socio.DNIS }}</p>
+
+<h2>Modificar Socio</h2>
+<form method="post" action="{% url 'modificar_socio' DNIS=socio.DNIS %}">
+    {% csrf_token %}
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre">
+    <label for="Primero">Primer Apellido:</label>
+    <input type="text" name="Primero">
+    <label for="Segundo">Segundo Apellido:</label>
+    <input type="text" name="Segundo">
+    <label for="Telefono">Teléfono:</label>
+    <input type="text" name="Telefono">
+    <label for="E-mail">E-mail:</label>
+    <input type="text" name="E-mail">
+    <input type="submit" value="Modificar">
+</form>
