@@ -17,7 +17,7 @@ class ListaNominas(ListView):
     context_object_name = 'nominas'
 
     def get_queryset(self):
-        nominas = Nomina.objects.order_by('#Nomina')
+        nominas = Nomina_tiene.objects.order_by('#Nomina')
         return {'nominas': nominas}
     
 
