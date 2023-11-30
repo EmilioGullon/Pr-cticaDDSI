@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'app',
     'Dep_Finanza',
     'DepMarketing',
+    'Dep_RRHH',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
