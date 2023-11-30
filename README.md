@@ -18,6 +18,7 @@ Este proyecto forma parte de un curso académico y tiene como objetivo principal
 ## Configuración del Proyecto
 1. Clona este repositorio: `git clone https://github.com/tu_usuario/tu_proyecto.git`
 2. Instala las dependencias de Django: `pip install -r requirements.txt`
+2. Instala las dependencias de Django: `pip install crispy-bootstrap5 `   
 3. Aplica las migraciones: `python manage.py migrate`
 4. Inicia el servidor de desarrollo: `python manage.py runserver`
 5. Visita [http://localhost:8000/](http://localhost:8000/) para ver la aplicación en acción.
