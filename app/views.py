@@ -57,6 +57,7 @@ def agregar(request):
 
 def login_view(request):
 #8;9?+W)3k}-5Txv
+#CC*H5R'hQYxNaNA
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -76,4 +77,16 @@ def register(request):
     data = {
         'form': CustomUserCreationForm()
     }    
+    
+    if request.method == 'POST':
+        user_creation_form = CustomUserCreationForm(data=request.POST)
+    
+        if user_creation_form.is_valid():  
+            user = user_creation_form.save()
+            
+            #user = authenticate(request ,username = user_creation_form.cleaned_data.get('username'), password = user_creation_form.cleaned_data.get('password'))
+        
+            login(request, user)
+            return redirect('home')
+    
     return render(request, 'registration/register.html', data)
