@@ -22,8 +22,13 @@ def agregar_socio(request):
         apellido2 = request.POST['Segundo']
         telefono = request.POST['Telefono']
         email = request.POST['E-mail']
+        producto = request.POST['producto']
         try:
-            Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
+            producto = get_object_or_404(Producto, Prod=producto)
+            if(producto):
+                nuevo_socio = Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
+                nuevo_socio.Producto.add(producto)
+
             return redirect('ListaMarketing')
         except Exception as e:
             # Manejar el error aquí, si es necesario
@@ -45,9 +50,11 @@ def agregar_anuncio(request):
         loc = request.POST['localizacion']
         producto = request.POST['producto']
         try:
-            nuevo_anuncio = Anuncio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
             producto = get_object_or_404(Producto, Prod=producto)
-            nuevo_anuncio.Producto.add(producto)
+            if(producto):
+                nuevo_anuncio = Anuncio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
+                nuevo_anuncio.Producto.add(producto)
+
             return redirect('ListaMarketing')
         
         except Exception as e:

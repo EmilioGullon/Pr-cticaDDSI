@@ -31,8 +31,7 @@ class Anuncio(models.Model):
     TipoA = models.CharField(max_length=20, null=False)
     DescripcionA = models.CharField(max_length=100, null=False)
     LocalizacionA = models.CharField(max_length=20, null=False, unique=True)
-
-    #Producto = models.ManyToManyField(Producto)
+    Producto = models.ManyToManyField(Producto)
 
 class Socio(models.Model):
     DNIS = models.CharField(max_length=9, primary_key=True)
@@ -41,8 +40,7 @@ class Socio(models.Model):
     Apellido2S = models.CharField(max_length=20, null=False)
     TelefonoS = models.IntegerField(null=False, unique=True)
     E_mailS = models.EmailField(max_length=320, null=False, unique=True)
-
-    #Producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=False, blank=False)
+    Producto = models.ManyToManyField(Producto)
 
 class Ingreso(models.Model):
     Ref_pago = models.BigIntegerField(primary_key=True)
