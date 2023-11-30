@@ -9,16 +9,18 @@ class ListaEmpleados(ListView):
     context_object_name = 'empleados'
 
     def get_queryset(self):
-        empleados = Empleado.objects.order_by('DNI')
-        return {'empleados': empleados}
+        empleados = Empleado.objects.order_by('DNIE')
+        nominas = Nomina_tiene.objects.order_by('Nomina')
+        return {'empleados': empleados, 'nominas': nominas}
     
-class ListaNominas(ListView):
-    template_name = 'rrhh/lista_nominas_empleado.html'
-    context_object_name = 'nominas'
+class ListaRRHH(ListView):
+    template_name = 'rrhh/lista_rrhh.html'
+    context_object_name = 'rrhh'
 
     def get_queryset(self):
-        nominas = Nomina_tiene.objects.order_by('#Nomina')
-        return {'nominas': nominas}
+        empleados = Empleado.objects.order_by('DNIE')
+        nominas = Nomina_tiene.objects.order_by('Nomina')
+        return {'empleados': empleados, 'nominas': nominas}
     
 
 def agregar_empleado(request):
@@ -31,20 +33,20 @@ def agregar_empleado(request):
 
         try:
             Empleado.objects.create(DNIE=dni, NombreE=nombre, Apellido1E=apellido1, Apellido2E=apellido2, TelefonoE=tlf)
-            return redirect('ListaEmpleados')
+            return redirect('ListaRRHH')
         except Exception as e:
             # Manejar el error aquí, si es necesario
             print(f"Error al agregar empleado: {e}")
             # Renderizar la misma página en caso de error
-            return render(request, 'finanza/agregar_empleado.html')
+            return render(request, 'rrhh/agregar_empleado.html')
 
-    return render(request, 'finanza/agregar_empleado.html')
+    return render(request, 'rrhh/agregar_empleado.html')
 
 
 def eliminar_empleado(request, DNI):
     empleado = get_object_or_404(Empleado, DNIE=DNI)
     empleado.delete()
-    return redirect('ListaEmpleados')
+    return redirect('ListaRRHH')
 
 def agregar_nomina(request):
     if request.method == 'POST':
@@ -52,11 +54,11 @@ def agregar_nomina(request):
         bruto = request.POST['bruto']
         impuestos = request.POST['impuestos']
         dni = request.POST['dni']
-        empleado = request.POST['impuestos']
+        empleado = request.POST['empleado']
 
         try:
             Nomina_tiene.objects.create(Nomina=num_nomina, Bruto=bruto, Impuesto=impuestos, DNIE=dni, Empleado=empleado)
-            return redirect('ListaNominas')
+            return redirect('ListaRRHH')
         except Exception as e:
             # Manejar el error aquí, si es necesario
             print(f"Error al agregar nómina: {e}")
@@ -69,4 +71,4 @@ def agregar_nomina(request):
 def eliminar_nomina(request, Num_nomina):
     nomina = get_object_or_404(Nomina_tiene, Num_nomina=Num_nomina)
     nomina.delete()
-    return redirect('ListaNominas')
+    return redirect('ListaRRHH')
