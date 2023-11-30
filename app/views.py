@@ -1,10 +1,22 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from .models import Empleado
+from .forms import CustomUserCreationForm
 
-# Create your views here.
-def home(request, username):
-    context = {'username': username}
-    return render(request, 'app/home.html', context)
+# Create your views here.i
+def home(request):
+    return render(request, 'app/home.html')
+
+@login_required
+def empleados(request):
+    return render(request, 'app/empleados.html')
+
+def desloguearse(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
 
 def contacto(request):
     return render(request, 'app/contacto.html')
@@ -42,3 +54,26 @@ def listas(request):
 
 def agregar(request):
     return render(request, 'agregar.html')
+
+def login_view(request):
+#8;9?+W)3k}-5Txv
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('home'))
+
+        else:
+            # Si el nombre de usuario y la contraseña no coinciden, devuelve un mensaje de error.
+            return render(request, 'app/login.html', {'error_message': 'Nombre de usuario y/o contraseña incorrectos'})
+
+    else:
+        return render(request, 'app/login.html')
+    
+def register(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }    
+    return render(request, 'registration/register.html', data)
