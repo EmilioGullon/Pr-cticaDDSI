@@ -1,0 +1,19 @@
+<h1>Detalles del Anuncio</h1>
+<p>Tipo: {{ anuncio.TipoA }}</p>
+<p>Descripción: {{ anuncio.DescripcionA}}</p>
+<p>Código: {{ anuncio.CodigoA }}</p>
+<p>Localización: {{ anuncio.LocalizacionA }}</p>
+
+<h2>Modificar Anuncio</h2>
+<form method="post" action="{% url 'modificar_anuncio' CodigoA=anuncio.CodigoA %}">
+    {% csrf_token %}
+    <label for="tipo">Tipo:</label>
+    <input type="text" name="tipo">
+    <label for="descripcion">Descripcion:</label>
+    <input type="text" name="descripcion">
+    <label for="codigo">Código:</label>
+    <input type="text" name="codigo">
+    <label for="localizacion">Localización:</label>
+    <input type="text" name="localizacion">
+    <input type="submit" value="Modificar">
+</form>

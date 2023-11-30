@@ -24,11 +24,14 @@ class Producto(models.Model):
     DescripcionP = models.CharField(max_length=320, null=False)
     Precio = models.DecimalField(max_digits=4, decimal_places=2, null=False, validators=[MinValueValidator(0.01)])
 
+    Gasto = models.OneToOneField(Gasto, on_delete=models.CASCADE, null=False, blank=False)
+
 class Anuncio(models.Model):
     CodigoA = models.CharField(max_length=9, primary_key=True)
     TipoA = models.CharField(max_length=20, null=False)
     DescripcionA = models.CharField(max_length=100, null=False)
     LocalizacionA = models.CharField(max_length=20, null=False, unique=True)
+    Producto = models.ManyToManyField(Producto)
 
 class Socio(models.Model):
     DNIS = models.CharField(max_length=9, primary_key=True)
@@ -37,6 +40,7 @@ class Socio(models.Model):
     Apellido2S = models.CharField(max_length=20, null=False)
     TelefonoS = models.IntegerField(null=False, unique=True)
     E_mailS = models.EmailField(max_length=320, null=False, unique=True)
+    Producto = models.ManyToManyField(Producto)
 
 class Ingreso(models.Model):
     Ref_pago = models.BigIntegerField(primary_key=True)
@@ -49,6 +53,8 @@ class Almacen(models.Model):
     NombreA = models.CharField(max_length=20, null=False)
     Direccion = models.CharField(max_length=40, null=False, unique=True)
     Provincia = models.CharField(max_length=10, null=False)
+
+    Productos = models.ManyToManyField(Producto, through='Contiene')
     
 class Nomina_tiene(models.Model):
     Nomina = models.BigIntegerField(primary_key=True)
@@ -58,8 +64,17 @@ class Nomina_tiene(models.Model):
     Empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, null=False)  # Es nulo devido a que no puede existir nomina sin empleado
 
 class Genera(models.Model):
-    Nomina = models.ForeignKey(Nomina_tiene, on_delete=models.CASCADE)
+    Nomina = models.OneToOneField(Nomina_tiene, on_delete=models.CASCADE, primary_key=True)
     Num_factura = models.IntegerField(unique=True, null=False)
     Fecha = models.DateField(null=False)
     class Meta:
         unique_together = ('Nomina', 'Num_factura', 'Fecha')
+
+class Contiene(models.Model):
+    Alm = models.ForeignKey(Almacen, on_delete=models.CASCADE)
+    Prod = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    CantidadP = models.IntegerField(default=1)
+
+    class Meta:
+        unique_together = ('Prod', 'Alm')
+

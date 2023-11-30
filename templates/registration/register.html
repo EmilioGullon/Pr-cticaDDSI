@@ -1,0 +1,26 @@
+{% extends 'app/home.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+    <section>
+        <div class='inicio_sesion'>
+            <h2>Registro de usuario</h2>
+        </div>
+        <form method="post" action="">
+            {% csrf_token %}
+
+            <div class="card mx-auto" style="width: 32rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Complete los campos</h5>
+                    {{ form | crispy }}
+                    <!--<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                    <a href={% url 'home' %} class="card-link">Inicio</a>
+                    <a href={% url 'login' %} class="card-link">Login</a>
+                    <button class="btn btn-sm btn-primary float-end" type="submit">Registrarse</button>
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}

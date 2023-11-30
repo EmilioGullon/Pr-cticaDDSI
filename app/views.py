@@ -1,10 +1,22 @@
 from django.shortcuts import render, redirect
-from .models import Empleado, Socio, Anuncio
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .models import Empleado
+from .forms import CustomUserCreationForm
 
-# Create your views here.
-def home(request, username):
-    context = {'username': username}
-    return render(request, 'app/home.html', context)
+# Create your views here.i
+def home(request):
+    return render(request, 'app/home.html')
+
+@login_required
+def empleados(request):
+    return render(request, 'app/empleados.html')
+
+def desloguearse(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
 
 def contacto(request):
     return render(request, 'app/contacto.html')
@@ -34,50 +46,6 @@ def agregar_empleado(request):
 
     return render(request, 'app/agregar_empleado.html')
 
-def agregar_socio(request):
-    if request.method == 'POST':
-        dni = request.POST['dni']
-        nombre = request.POST['nombre']
-        apellido1 = request.POST['Primero']
-        apellido2 = request.POST['Segundo']
-        telefono = request.POST['Telefono']
-        email = request.POST['E-mail']
-        try:
-            Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
-            return redirect('listar_socios')
-        except Exception as e:
-            # Manejar el error aquí, si es necesario
-            print(f"Error al agregar socio: {e}")
-            # Renderizar la misma página en caso de error
-            return render(request, 'app/agregar_socio.html')
-
-    return render(request, 'app/agregar_socio.html')
-
-def listar_socios(request):
-    socios = Socio.objects.all()
-    return render(request, 'app/listar_socios.html', {'socios': socios})
-
-def agregar_anuncio(request):
-    if request.method == 'POST':
-        codigo = request.POST['codigo']
-        tipo = request.POST['tipo']
-        desc = request.POST['descripcion']
-        loc = request.POST['localizacion']
-        try:
-            Anuncio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
-            return redirect('listar_anuncios')
-        except Exception as e:
-            # Manejar el error aquí, si es necesario
-            print(f"Error al agregar anuncio: {e}")
-            # Renderizar la misma página en caso de error
-            return render(request, 'app/agregar_anuncio.html')
-
-    return render(request, 'app/agregar_anuncio.html')
-
-def listar_anuncios(request):
-    anuncios = Anuncio.objects.all()
-    return render(request, 'app/listar_anuncios.html', {'anuncios': anuncios})
-
 def enlace_principal(request):
     return render(request, 'enlace_principal.html')
 
@@ -86,3 +54,39 @@ def listas(request):
 
 def agregar(request):
     return render(request, 'agregar.html')
+
+def login_view(request):
+#8;9?+W)3k}-5Txv
+#CC*H5R'hQYxNaNA
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('home'))
+
+        else:
+            # Si el nombre de usuario y la contraseña no coinciden, devuelve un mensaje de error.
+            return render(request, 'app/login.html', {'error_message': 'Nombre de usuario y/o contraseña incorrectos'})
+
+    else:
+        return render(request, 'app/login.html')
+    
+def register(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }    
+    
+    if request.method == 'POST':
+        user_creation_form = CustomUserCreationForm(data=request.POST)
+    
+        if user_creation_form.is_valid():  
+            user = user_creation_form.save()
+            
+            #user = authenticate(request ,username = user_creation_form.cleaned_data.get('username'), password = user_creation_form.cleaned_data.get('password'))
+        
+            login(request, user)
+            return redirect('home')
+    
+    return render(request, 'registration/register.html', data)

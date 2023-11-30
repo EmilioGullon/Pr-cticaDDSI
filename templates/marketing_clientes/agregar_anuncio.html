@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Socio</title>
+    <title>Agregar Anuncio</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -56,21 +56,19 @@
     </style>
 </head>
 <body>
-    <form method="post" action="{% url 'agregar_socio' %}">
+    <form method="post" action="{% url 'agregar_anuncio' %}">
         {% csrf_token %}
-        <h1>Agregar Socio</h1>
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" required>
-        <label for="Primero">Primer Apellido:</label>
-        <input type="text" name="Primero" required>
-        <label for="Segundo">Segundo Apellido:</label>
-        <input type="text" name="Segundo" required>
-        <label for="Telefono">Teléfono:</label>
-        <input type="text" name="Telefono" required>
-        <label for="E-mail">E-mail:</label>
-        <input type="text" name="E-mail" required>
-        <label for="dni">DNI:</label>
-        <input type="text" name="dni" required>
+        <h1>Agregar Anuncio</h1>
+        <label for="codigo">Código:</label>
+        <input type="text" name="codigo" required>
+        <label for="tipo">Tipo:</label>
+        <input type="text" name="tipo" required>
+        <label for="producto">Código Producto:</label>
+        <input type="text" name="producto" required>
+        <label for="descripcion">Descripción:</label>
+        <input type="text" name="descripcion" required>
+        <label for="localizacion">Localización:</label>
+        <input type="text" name="localizacion" required>
         <input type="submit" value="Agregar">
     </form>
 </body>
