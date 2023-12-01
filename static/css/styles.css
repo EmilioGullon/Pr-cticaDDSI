@@ -40,7 +40,7 @@ form {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 350px; /* O ajusta según tus necesidades */    
 }
 
 h1 {
@@ -133,12 +133,11 @@ li {
 }
 
 label {
-    display: block;
-    margin: 10px 0 5px;
     color: #555;
 }
 
 input {
+    display: block;
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -151,6 +150,7 @@ input[type="submit"] {
     background-color: #4caf50;
     color: white;
     cursor: pointer;
+    width: auto;
 }
 
 input[type="submit"]:hover {

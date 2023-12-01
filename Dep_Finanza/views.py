@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView
-from app.models import Ingreso,Gasto
+from app.models import Ingreso,Gasto, GastoN, GastoP
 from itertools import chain
 # Create your views here.
 
@@ -9,10 +9,12 @@ class ListaMovimientos(ListView):
     context_object_name = 'movimientos'
 
     def get_queryset(self):
-        gastos = Gasto.objects.order_by('Num_factura')
+        gastosN = GastoN.objects.all()
+        gastosP = GastoP.objects.all()        
+        movimientos = list(gastosN) + list(gastosP)
+        gastos = sorted(movimientos, key=lambda movimiento: movimiento.Num_factura)
         ingresos = Ingreso.objects.order_by('Ref_pago')
         return {'gastos': gastos, 'ingresos': ingresos}
-    
 
 def agregar_gasto(request):
     if request.method == 'POST':
@@ -22,7 +24,11 @@ def agregar_gasto(request):
         cant = request.POST['cant']
 
         try:
-            Gasto.objects.create(Num_factura=num_fact, Receptor=nombre, TipoG=gasto,  CantG=cant)
+            if gasto == 'N':
+                GastoN.objects.create(Num_factura=num_fact, Receptor=nombre,  CantG=cant)
+            else:
+                GastoP.objects.create(Num_factura=num_fact, Receptor=nombre,  CantG=cant)                
+            
             return redirect('ListaMovimientos')
         except Exception as e:
             # Manejar el error aquí, si es necesario
