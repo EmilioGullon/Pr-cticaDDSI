@@ -5,21 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Empleado</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body class="body-form">
-    <form method="post" action="{% url 'agregar_gasto' %}">
-        {% csrf_token %}
-        <h1>Agregar Gasto</h1>
-        <label for="num">Nº Factura:</label>
-        <input type="text" name="num" required>
-        <label for="nombre">Nombre del remitente:</label>
-        <input type="text" name="nombre" required>
-        <label for="gasto">Concepto del gasto:</label>
-        <input type="text" name="gasto" required>
-        <label for="cant">Cantidad:</label>
-        <input type="text" name="cant" required>
-        <input type="submit" value="Agregar">
-    </form>
+<body>
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="card" style="width: 25rem;">
+                <div class="card-body">
+                    <h2 class="card-title">Agregar Gasto</h2>
+                    <form method="post" action="{% url 'agregar_gasto' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="num">Nº Factura:</label>
+                            <input type="text" class="form-control" id="num" name="num" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre del remitente:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cant">Cantidad:</label>
+                            <input type="text" class="form-control" id="cant" name="cant" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de gasto:</label><br>
+                            <label><input type="radio" name="gasto" value="N" checked> Nomina</label><br>
+                            <label><input type="radio" name="gasto" value="P" > Presupuesto</label><br>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
