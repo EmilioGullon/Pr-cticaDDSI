@@ -3,17 +3,18 @@
 {% if request.user.is_authenticated %}
 <hr>
 <header>
-    <h1><marquee>Bienvenido, {{ user.username | upper }} a tu página de inicio</marquee></h1>
+    <h1><marquee>Bienvenid@, {{ user.first_name | upper }} {{ user.last_name | upper }} a GAME CENTER</marquee></h1>
 </header>
 
 <section>
-    <p><marquee>¡Hola {{ user.username }}! Esta es una página de inicio simple creada con Django.</marquee></p>
-    <p>Espero que disfrutes explorando el contenido.</p>
+    <p><marquee>¡Hola {{ user.first_name }}! Esperamos que te quedes... .</marquee></p>
+    <p>Bienvenid@ a la página web <b>🔥🔥🔥OFICIAL🔥🔥🔥</b> de GAME CENTER. ¡Tu tienda de videojuegos de confianza!</p>
+    <p>En esta webpage encontrarás nuestros productos a la venta.</p>
 </section>
 
 </hr>
 {% endif %}
 <footer>
-    <p>&copy; 2023 Mi Página de Inicio.<small>Odio a {{ user.username }} (espero que no vea esto me daría mucha vergüenza)</small></p>
+    <p>&copy; 2023 GAME CENTER. All rights reserved.</p>
 </footer>
 {% endblock  %}
