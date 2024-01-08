@@ -1,0 +1,41 @@
+{% extends 'almlog/menu.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar almacen</title>
+    <link rel="stylesheet" href="{% static '/css/almlog/listar.css' %}">
+</head>
+<body>
+    <h1>Listado de almacenes</h1>
+
+    {% for almacen in almacenes %}
+
+    <div class="card">
+        <table>
+            <tr>
+                <td colspan="3" id="title"><b>{{ almacen.Alm }}</b></td>
+            </tr>
+            <tr>
+                <td id="field">Nombre</td>
+                <td id="field">Dirección</td>
+                <td id="field">Provincia</td>
+            </tr>
+            <tr>
+                <td id="valor">{{ almacen.NombreA }}</td>
+                <td id="valor">{{ almacen.Direccion }}</td>
+                <td id="valor">{{ almacen.Provincia }}</td>
+            </tr>
+        </table>
+    </div>
+
+    {% endfor %}
+</body>
+</html>
+
+{% endblock %}

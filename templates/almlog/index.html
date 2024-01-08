@@ -1,0 +1,27 @@
+{% extends 'almlog/menu.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almacenamiento y Logística</title>
+    <link rel="stylesheet" href="{% static '/css/almlog/index.css' %}">
+</head>
+
+<body>
+    <h1> Departamento de Almacenamiento y Logística</h1>
+
+    <table class="card">
+        <tr>
+            <td><b><a href="{% url 'almacenes' %}">ALMACENES</a></b></td>
+        </tr>
+        <tr>
+            <td><b><a href="{% url 'productos' %}">PRODUCTOS</a></b></td>
+        </tr>
+    </table>
+</body>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+.card {
+    background: #404040;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.card td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    border: 10px solid whitesmoke;
+    margin: 0;
+    width: 300px;
+}
+
+.card td a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.card td a:hover {
+    color: rgb(90, 188, 241);
+}
+
+.card td a:active {
+    color: lightblue;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+    text-align: justify;
+}
+
+h1 {
+    text-align: center;
+}
