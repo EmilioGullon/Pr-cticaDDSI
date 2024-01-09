@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView
-from app.models import Ingreso,Gasto, GastoN, GastoP
+from app.models import Ingreso,Gasto, GastoN, GastoP, Nomina_tiene,genera
 from itertools import chain
 # Create your views here.
 
@@ -38,6 +38,13 @@ def agregar_gasto(request):
 
     return render(request, 'finanza/agregar_gasto.html')
 
+def agregar_gasto_nomina(nom):
+    try:
+        gn = GastoN.objects.create(Num_factura="N"+nom.Nomina, Receptor=nom.DNIE.NombreE,  CantG=nom.Bruto)
+        genera.objects.create(Nomina = nom, Num_factura = gn)
+    except Exception as e:
+            # Manejar el error aquí, si es necesario
+            print(f"Error al agregar empleado: {e}")
 
 def eliminar_gasto(request, Num_factura):
     gasto = get_object_or_404(Gasto, Num_factura=Num_factura)

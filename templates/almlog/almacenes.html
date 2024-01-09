@@ -1,0 +1,27 @@
+{% extends 'almlog/menu.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almacenes</title>
+    <link rel="stylesheet" href="{% static '/css/almlog/index.css' %}">
+</head>
+
+<body>
+    <h1> ALMACENES </h1>
+
+    <table class="card">
+        <tr>
+            <td><b><a href="{% url 'agregar_almacen' %}">Agregar almacén</a></b></td>
+        </tr>
+        <tr>
+            <td><b><a href="{% url 'listar_almacenes' %}">Listar almacenes</a></b></td>
+        </tr>
+    </table>
+</body>
+
+{% endblock %}

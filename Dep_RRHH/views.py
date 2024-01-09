@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView
 from app.models import Empleado,Nomina_tiene
+from Dep_Finanza.views import agregar_gasto_nomina
 from itertools import chain
 # Create your views here.
 
@@ -43,8 +44,8 @@ def agregar_empleado(request):
     return render(request, 'rrhh/agregar_empleado.html')
 
 
-def eliminar_empleado(request, DNI):
-    empleado = get_object_or_404(Empleado, DNIE=DNI)
+def eliminar_empleado(request, DNIE):
+    empleado = get_object_or_404(Empleado, DNIE=DNIE)
     empleado.delete()
     return redirect('ListaRRHH')
 
@@ -54,10 +55,11 @@ def agregar_nomina(request):
         bruto = request.POST['bruto']
         impuestos = request.POST['impuestos']
         dni = request.POST['dni']
-        empleado = request.POST['empleado']
 
         try:
-            Nomina_tiene.objects.create(Nomina=num_nomina, Bruto=bruto, Impuesto=impuestos, DNIE=dni, Empleado=empleado)
+            empleado = Empleado.objects.get(DNIE=dni)
+            nom = Nomina_tiene.objects.create(Nomina=num_nomina, Bruto=bruto, Impuesto=impuestos, DNIE=empleado)
+            agregar_gasto_nomina(nom)
             return redirect('ListaRRHH')
         except Exception as e:
             # Manejar el error aquí, si es necesario

@@ -56,11 +56,11 @@
     </style>
 </head>
 <body>
-    <form method="post" action="{% url 'agregar_ingreso' %}">
+    <form method="post" action="{% url 'agregar_nomina' %}">
         {% csrf_token %}
         <h1>Agregar Nómina</h1>
-        <label for="empleado">Empleado:</label>
-        <input type="text" name="empleado" required>
+        <label for="dni">DNI del empleado (sin letra):</label>
+        <input type="number" name="dni" required>
         <label for="num_nomina">Nº Nómina:</label>
         <input type="text" name="num_nomina" required>
         <label for="bruto">Cantidad en bruto:</label>

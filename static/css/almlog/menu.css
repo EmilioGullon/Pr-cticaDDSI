@@ -1,0 +1,42 @@
+body {
+    background: whitesmoke;
+    color: #202020;
+}
+
+.navbar {
+    background: #404040;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+.navbar table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.navbar td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    border: 3px solid white;
+}
+
+.navbar td a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.navbar td a:hover {
+    color: wheat;
+}
+
+.navbar td a:active {
+    color: orange;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+    text-align: justify;
+}

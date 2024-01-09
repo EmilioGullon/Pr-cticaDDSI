@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -130,7 +131,7 @@
                     <li>
                         <div>{{ empleado.NombreE }} - {{ empleado.Apellido1E }} - {{ empleado.Apellido2E }} - {{ empleado.DNIE }} - {{ empleado.TelefonoE }}</div>
                         <div class="button-container">
-                            <a class="button delete-button" onclick="confirmDelete('{{ empleado.DNIE }}')">X</a>
+                            <a class="button delete-button" onclick="confirmDelete('{{ empleado.DNIE }}', '/rrhh/eliminar_empleado/')">X</a>
                         </div>
                     </li>
                 {% endfor %}
@@ -146,7 +147,7 @@
             <ul>
                 {% for nomina in rrhh.nominas %} <!-- ????? -->
                     <li>
-                        <div>{{ nomina.Nomina }} - {{ nomina.Bruto }} - {{ nomina.Impuesto }} - {{ nomina.DNIE }} - {{ nomina.Empleado }}</div>
+                        <div>{{ nomina.Nomina }} - {{ nomina.Bruto }} - {{ nomina.Impuesto }} - {{ nomina.DNIE.DNIE }} - {{ nomina.DNIE.NombreE }}</div>
                         <div class="button-container">
                             <a class="button delete-button" onclick="confirmDelete('{{ nomina.Nomina }}')">X</a>
                         </div>
@@ -167,47 +168,7 @@
         </div>
     </div>
 
-    <script>
-        var itemToDelete;
-
-        function confirmDelete(item) {
-            itemToDelete = item;
-            document.getElementById('deleteModal').style.display = 'block';
-        }
-
-        function deleteItem() {
-            if (itemToDelete) {
-                fetch('/rrhh/eliminar_nomina/' + itemToDelete + '/')
-                    .then(response => {
-                        if (response.ok) {
-                            //alert('Elemento ' + itemToDelete + ' eliminado.');
-                            // Puedes actualizar la página o realizar alguna otra acción después de la eliminación
-                            location.reload();
-                        } else {
-                            alert('Error al eliminar el elemento.');
-                        }
-                        // Ocultar el modal después de la confirmación
-                        document.getElementById('deleteModal').style.display = 'none';
-                    })
-                    .catch(error => {
-                        console.error('Error al eliminar el elemento:', error);
-                        alert('Error al eliminar el elemento.');
-                        // Ocultar el modal después de la confirmación
-                        document.getElementById('deleteModal').style.display = 'none';
-                    });
-            } else {
-                console.error('Error: itemToDelete no tiene un valor válido.');
-                alert('Error al eliminar el elemento.');
-                // Ocultar el modal después de la confirmación
-                document.getElementById('deleteModal').style.display = 'none';
-            }
-        }
-
-        function cancelDelete() {
-            // Cancelar la eliminación, simplemente ocultar el modal
-            document.getElementById('deleteModal').style.display = 'none';
-        }
-    </script>
+    <script src="{% static 'js/script.js' %}"></script>
 
 </body>
 </html>
