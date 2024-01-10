@@ -149,7 +149,7 @@
                     <li>
                         <div>{{ nomina.Nomina }} - {{ nomina.Bruto }} - {{ nomina.Impuesto }} - {{ nomina.DNIE.DNIE }} - {{ nomina.DNIE.NombreE }}</div>
                         <div class="button-container">
-                            <a class="button delete-button" onclick="confirmDelete('{{ nomina.Nomina }}')">X</a>
+                            <a class="button delete-button" onclick="confirmDelete('{{ nomina.Nomina }}', '/rrhh/eliminar_nomina/')">X</a>
                         </div>
                     </li>
                 {% endfor %}
