@@ -70,7 +70,7 @@ def agregar_nomina(request):
     return render(request, 'rrhh/agregar_nomina.html')
 
 
-def eliminar_nomina(request, Num_nomina):
-    nomina = get_object_or_404(Nomina_tiene, Num_nomina=Num_nomina)
+def eliminar_nomina(request, Nomina):
+    nomina = get_object_or_404(Nomina_tiene, Nomina=Nomina)
     nomina.delete()
     return redirect('ListaRRHH')

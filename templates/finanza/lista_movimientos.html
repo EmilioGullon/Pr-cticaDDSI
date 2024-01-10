@@ -1,13 +1,5 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-xxxxx" crossorigin="anonymous" />
-    <title>Listado de Gastos e Ingresos</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+{% extends "app/base.html" %}
+{% block content %}
 <body class="body-otra-pagina">
     <div class="container">
         <div class="box">
@@ -46,14 +38,21 @@
     </div>
 
     <!-- Delete Modal -->
-    <div id="deleteModal" class="delete-modal">
-        <div class="modal-content">
-            <p>¿Estás seguro de que quieres eliminar este elemento?</p>
-            <button class="modal-button" onclick="deleteItem()">Sí, eliminar</button>            
-            <button class="modal-button" onclick="cancelDelete()">Cancelar</button>
+    <div id="deleteModal" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title"> ¿Estás seguro de que quieres eliminar este elemento?</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cancelDelete()"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelDelete()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="deleteItem()">Sí, eliminar</button>            
+                </div>
+            </div>
         </div>
     </div>
-    
+    {% load static %}
     <script src="{% static 'js/script.js' %}"></script>
 </body>
-</html>
+{% endblock %}

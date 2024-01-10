@@ -23,5 +23,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('finanzas/', include('Dep_Finanza.urls')),
     path('marketing_clientes/', include('DepMarketing.urls')),
-    path('rrhh/', include('Dep_RRHH.urls'))
+    path('rrhh/', include('Dep_RRHH.urls')),
+    path('almacenamiento_logistica/', include('DepAlmLog.urls'))
 ]

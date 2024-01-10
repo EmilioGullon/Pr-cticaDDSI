@@ -14,19 +14,26 @@ class Empleado(models.Model):
    
     def __str__(self):
         return self.nombre
-
+class Nomina_tiene(models.Model):
+    Nomina = models.BigIntegerField(primary_key=True)
+    Bruto = models.DecimalField(max_digits=12, decimal_places=2, null=False, validators=[MinValueValidator(limit_value=0.01, message='El campo debe ser un número mayor que 0')])
+    Impuesto = models.IntegerField(null=False, validators=[MinValueValidator(0)])
+    DNIE = models.OneToOneField(Empleado, on_delete=models.CASCADE)
 class Gasto(models.Model):
     Num_factura = models.CharField(max_length=20, primary_key=True)
     Receptor = models.CharField(max_length=20, null=False)
-    CantG = models.DecimalField(max_digits=8, decimal_places=2, null=False, validators=[MinValueValidator(limit_value=0.01, message='El campo debe ser un número mayor que 0')])
+    CantG = models.DecimalField(max_digits=12, decimal_places=2, null=False, validators=[MinValueValidator(limit_value=0.01, message='El campo debe ser un número mayor que 0')])
+    FechaN = models.DateField(default=timezone.now, null=False)
 
     class Meta:
         abstract = True
 
 class GastoN(Gasto):
+    Nomina_tiene = models.ForeignKey(Nomina_tiene,on_delete=models.CASCADE)
     pass
 
 class GastoP(Gasto):
+    CantidadC = models.PositiveIntegerField()
     pass
 
 class Producto(models.Model):
@@ -67,28 +74,6 @@ class Almacen(models.Model):
 
     Productos = models.ManyToManyField(Producto, through='contiene')
    
-class Nomina_tiene(models.Model):
-    Nomina = models.BigIntegerField(primary_key=True)
-    Bruto = models.IntegerField(null=False, validators=[MinValueValidator(0)])
-    Impuesto = models.IntegerField(null=False, validators=[MinValueValidator(0)])
-    DNIE = models.OneToOneField(Empleado, on_delete=models.CASCADE)
-
-class genera(models.Model):
-    Nomina = models.ForeignKey(Nomina_tiene, on_delete=models.CASCADE)
-    FechaN = models.DateField(default=timezone.now, null=False)
-    Num_factura = models.ForeignKey(GastoN, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('Nomina', 'FechaN'), ('FechaN', 'Num_factura')
-
-class conlleva(models.Model):
-    Num_factura = models.ForeignKey(GastoP, on_delete=models.CASCADE)
-    FechaP = models.DateField(default=timezone.now, null=False)
-    Prod = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    Cant = models.PositiveIntegerField()
-
-    class Meta:
-        unique_together = ('Num_factura', 'FechaP'), ('FechaP', 'Prod')
 
 class compra(models.Model):
     Prod = models.ForeignKey(Producto, on_delete=models.CASCADE)
