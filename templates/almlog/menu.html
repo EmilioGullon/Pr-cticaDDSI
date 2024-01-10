@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almacenamiento y Logística</title>
+    <link rel="stylesheet" href="{% static '/css/almlog/menu.css' %}">
+</head>
+<body>
+
+<nav class="navbar" class="container">
+    <table>
+        <tr>
+            <td><a href="{% url 'index' %}">INICIO</a></td>
+            <td><a href="{% url 'almacenes' %}">ALMACENES</a></td>
+            <td><a href="{% url 'productos' %}">PRODUCTOS</a></td>
+    </table>
+</nav>
+
+<main class="container">
+    {% block content %}
+    {% endblock %}
+</main>
+
+</body>
+</html>
