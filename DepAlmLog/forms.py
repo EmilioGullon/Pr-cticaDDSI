@@ -25,3 +25,6 @@ class CrearProducto(forms.ModelForm):
         widgets = {
             'DescripcionP': forms.Textarea(attrs={'class': 'descripcion-input'}),
         }
+
+class BuscarProducto(forms.Form):
+    consulta = forms.CharField(max_length=100, required=False, label='Buscar')
