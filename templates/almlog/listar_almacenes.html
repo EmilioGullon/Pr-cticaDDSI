@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar almacen</title>
+    <title>Listar almacenes</title>
     <link rel="stylesheet" href="{% static '/css/almlog/listar.css' %}">
 </head>
 <body>
@@ -16,7 +16,62 @@
 
     {% for almacen in almacenes %}
 
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="delete-modal">
+        <div class="modal-content">
+            <p>¿Estás seguro de que quieres eliminar este elemento?</p>&nbsp;&nbsp;&nbsp; 
+            <button class="modal-button" onclick="deleteItem()">Eliminar</button>&nbsp;&nbsp;          
+            <button class="modal-button" onclick="cancelDelete()">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        var itemToDelete;
+
+        function confirmDelete(item) {
+            itemToDelete = item;
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function deleteItem() {
+            if (itemToDelete) {
+                fetch('/almacenamiento_logistica/eliminar_almacen/' + itemToDelete + '/')
+                    .then(response => {
+                        if (response.ok) {
+                            //alert('Elemento ' + itemToDelete + ' eliminado.');
+                            // Puedes actualizar la página o realizar alguna otra acción después de la eliminación
+                            location.reload();
+                        } else {
+                            alert('Error al eliminar el elemento.');
+                        }
+                        // Ocultar el modal después de la confirmación
+                        document.getElementById('deleteModal').style.display = 'none';
+                    })
+                    .catch(error => {
+                        console.error('Error al eliminar el elemento:', error);
+                        alert('Error al eliminar el elemento.');
+                        // Ocultar el modal después de la confirmación
+                        document.getElementById('deleteModal').style.display = 'none';
+                    });
+            } else {
+                console.error('Error: itemToDelete no tiene un valor válido.');
+                alert('Error al eliminar el elemento.');
+                // Ocultar el modal después de la confirmación
+                document.getElementById('deleteModal').style.display = 'none';
+            }
+        }
+
+        function cancelDelete() {
+            // Cancelar la eliminación, simplemente ocultar el modal
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+    </script>
+
     <div class="card">
+        <div class="button-container">
+            <a class="button delete-button" onclick="confirmDelete('{{ almacen.Alm }}')">X</a>
+        </div>
+
         <table>
             <tr>
                 <td colspan="3" id="title"><b>{{ almacen.Alm }}</b></td>
@@ -32,6 +87,7 @@
                 <td id="valor">{{ almacen.Provincia }}</td>
             </tr>
         </table>
+
     </div>
 
     {% endfor %}
