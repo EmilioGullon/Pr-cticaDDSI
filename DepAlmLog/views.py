@@ -40,8 +40,9 @@ def crear_producto(request):
     if request.method == 'POST':
         form = CrearProducto(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/almacenamiento_logistica/productos')
+            producto = form.save()
+            nombre = producto.NombreP
+            return redirect('/almacenamiento_logistica/buscar_producto/?consulta={}'.format(nombre))
     else:
         form = CrearProducto()
 
