@@ -74,7 +74,7 @@
 
         <table>
             <tr>
-                <td colspan="3" id="title"><b>{{ almacen.Alm }}</b></td>
+                <td colspan="3" id="title"><b><a href="{% url 'contenido_almacen' Alm=almacen.Alm %}">{{ almacen.Alm }}</a></b></td>
             </tr>
             <tr>
                 <td id="field">Nombre</td>
@@ -87,7 +87,6 @@
                 <td id="valor">{{ almacen.Provincia }}</td>
             </tr>
         </table>
-
     </div>
 
     {% endfor %}

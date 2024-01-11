@@ -1,0 +1,35 @@
+{% extends 'almlog/menu.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contenido de almacén</title>
+    <link rel="stylesheet" href="{% static '/css/almlog/contenido.css' %}">
+</head>
+<body>
+    <h1>Contenido del almacén {{ almacen.NombreA }}</h1>
+
+        <table>
+            <tr>
+                <td id="title">Código del producto</td>
+                <td id="title">Nombre del producto</td>
+                <td id="title">Cantidad</td>
+            </tr>
+            {% for producto in productos %}
+            <tr>
+                <td id="valor">{{ producto.Prod.Prod }}</td>
+                <td id="valor">{{ producto.Prod.NombreP }}</td>
+                <td id="valor">{{ producto.CantidadC }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+</body>
+</html>
+
+{% endblock %}
