@@ -24,7 +24,7 @@
             <tr>
                 <td id="valor">{{ producto.Prod.Prod }}</td>
                 <td id="valor">{{ producto.Prod.NombreP }}</td>
-                <td id="valor">{{ producto.CantidadC }}</td>
+                <td id="valor">{{ producto.CantidadC }} <a href="{% url 'modificar_contiene_almacen' Alm=almacen.Alm Prod=producto.Prod.Prod %}">✏️</a></td>
             </tr>
             {% endfor %}
         </table>

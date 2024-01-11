@@ -14,6 +14,19 @@ td {
     border: 5px solid whitesmoke;
 }
 
+td a {
+    color: black;
+    text-decoration: none;
+}
+
+td a:hover {
+    color: rgb(253, 101, 0);
+}
+
+td a:active {
+    color: rgb(255, 234, 1);
+}
+
 #title {
     background-color: #404040;
     color: whitesmoke;

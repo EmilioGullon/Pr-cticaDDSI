@@ -39,6 +39,20 @@ class ProductoA_EnAlmacen(forms.ModelForm):
             'CantidadC': 'Cantidad del producto',
         }
 
+class ModificarCantidad(forms.ModelForm):
+    class Meta:
+        model = contiene
+        fields = ['CantidadC']
+        labels = {
+            'CantidadC': 'Nueva cantidad',
+        }
+
+    def clean_CantidadC(self):
+        cantidad = self.cleaned_data['CantidadC']
+        if cantidad < 0:
+            raise forms.ValidationError('La cantidad debe ser un número positivo.')
+        return cantidad
+
 class ModificarProducto(forms.ModelForm):
     class Meta:
         model = Producto

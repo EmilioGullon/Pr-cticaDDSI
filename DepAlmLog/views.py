@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from app.models import Almacen, Producto, contiene
-from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen, ModificarProducto, ModificarAlmacen
+from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen, ModificarProducto, ModificarAlmacen, ModificarCantidad
 from django.views import View
 
 # Create your views here.
@@ -123,3 +123,31 @@ def modificar_almacen(request, Alm):
         form = ModificarAlmacen(instance=almacen)
 
     return render(request, 'almlog/modificar_almacen.html', {'form': form})
+
+def modificar_contiene_almacen(request, Alm, Prod):
+    contenedor = get_object_or_404(contiene, Alm=Alm, Prod=Prod)
+
+    if request.method == 'POST':
+        form = ModificarCantidad(request.POST, instance=contenedor)
+        if form.is_valid():
+            nuevo = form.save()
+            codigo = nuevo.Alm.Alm
+            return redirect('/almacenamiento_logistica/contenido_almacen/{}'.format(codigo))
+    else:
+        form = ModificarCantidad(instance=contenedor)
+
+    return render(request, 'almlog/modificar_contiene.html', {'form': form})
+
+def modificar_contiene_producto(request, Prod, Alm):
+    contenedor = get_object_or_404(contiene, Prod=Prod, Alm=Alm)
+
+    if request.method == 'POST':
+        form = ModificarCantidad(request.POST, instance=contenedor)
+        if form.is_valid():
+            nuevo = form.save()
+            codigo = nuevo.Prod.Prod
+            return redirect('/almacenamiento_logistica/ubicacion_producto/{}'.format(codigo))
+    else:
+        form = ModificarCantidad(instance=contenedor)
+
+    return render(request, 'almlog/modificar_contiene.html', {'form': form})
