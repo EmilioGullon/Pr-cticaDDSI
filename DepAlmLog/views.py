@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from app.models import Almacen, Producto
-from .forms import CrearAlmacen, CrearProducto, BuscarProducto
+from app.models import Almacen, Producto, contiene
+from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoAAlmacen
 from django.views import View
 
 # Create your views here.
@@ -64,5 +64,27 @@ def buscar_producto(request):
 
 def eliminar_producto(request, Prod):
     producto = get_object_or_404(Producto, Prod=Prod)
+    nombre = producto.NombreP
     producto.delete()
-    return redirect('/almacenamiento_logistica/buscar_producto')
+    return redirect('/almacenamiento_logistica/buscar_producto/?consult={}'.format(nombre))
+
+def producto_a_almacen(request):
+    if request.method == 'POST':
+        form = ProductoAAlmacen(request.POST)
+        if form.is_valid():
+            contenido = form.save()
+            #almacen = contenido.Alm
+            #return redirect('/almacenamiento_logistica/#contenido_almacen/{}'.format(almacen.Alm))
+            return redirect('/almacenamiento_logistica/almacenes')
+    else:
+        form = ProductoAAlmacen()
+
+    return render(request, 'almlog/producto_a_almacen.html', {'form': form})
+
+def contenido_almacen(request, Alm):
+    productos = contiene.objects.filter(Alm=Alm)
+    almacen = Almacen.objects.get(Alm=Alm)
+    return render(request, 'almlog/contenido_almacen.html', {
+        'productos': productos,
+        'almacen': almacen
+    })

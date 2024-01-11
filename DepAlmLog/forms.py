@@ -1,5 +1,5 @@
 from django import forms
-from app.models import Almacen, Producto
+from app.models import Almacen, Producto, contiene
 
 class CrearAlmacen(forms.ModelForm):
     class Meta:
@@ -28,3 +28,13 @@ class CrearProducto(forms.ModelForm):
 
 class BuscarProducto(forms.Form):
     consulta = forms.CharField(max_length=100, required=False, label='Buscar')
+
+class ProductoAAlmacen(forms.ModelForm):
+    class Meta:
+        model = contiene
+        fields = ['Prod', 'Alm', 'CantidadC']
+        labels = {
+            'Alm': 'Código del almacén',
+            'Prod': 'Código del producto',
+            'CantidadC': 'Cantidad del producto',
+        }
