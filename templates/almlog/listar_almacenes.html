@@ -69,9 +69,10 @@
 
     <div class="card">
         <div class="button-container">
+            <a class="modifica" href="{% url 'modificar_almacen' Alm=almacen.Alm %}"><b>Modificar</b></a>
             <a class="button delete-button" onclick="confirmDelete('{{ almacen.Alm }}')">X</a>
         </div>
-
+        <p style="font-size: 4px;"></p>
         <table>
             <tr>
                 <td colspan="3" id="title"><b><a href="{% url 'contenido_almacen' Alm=almacen.Alm %}">{{ almacen.Alm }}</a></b></td>

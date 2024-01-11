@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, almacenes, productos, listar_almacenes, crear_almacen, crear_producto, eliminar_almacen, buscar_producto, eliminar_producto, producto_a_en_almacen, contenido_almacen, ubicacion_producto, modificar_producto
+from .views import index, almacenes, productos, listar_almacenes, crear_almacen, crear_producto, eliminar_almacen, buscar_producto, eliminar_producto, producto_a_en_almacen, contenido_almacen, ubicacion_producto, modificar_producto, modificar_almacen
 
 urlpatterns = [
     path('', index, name='index'),
@@ -15,4 +15,5 @@ urlpatterns = [
     path('contenido_almacen/<str:Alm>', contenido_almacen, name='contenido_almacen'),
     path('ubicacion_producto/<int:Prod>', ubicacion_producto, name='ubicacion_producto'),
     path('modificar_producto/<int:Prod>/', modificar_producto, name='modificar_producto'),
+    path('modificar_almacen/<str:Alm>/', modificar_almacen, name='modificar_almacen'),
 ]

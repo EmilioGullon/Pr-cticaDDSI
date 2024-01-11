@@ -3,7 +3,7 @@
     color: black;
     padding-left: 2px;
     padding-right: 2px;
-    padding-top: 2px;
+    padding-top: 4px;
     padding-bottom: 2px;
     margin-bottom: 10px;
     margin-left: auto;
@@ -36,6 +36,24 @@ td a:hover {
 }
 
 td a:active {
+    color: rgb(255, 234, 1);
+}
+
+.modifica {
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 15px;
+    color: black;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.modifica:hover {
+    color: rgb(253, 101, 0);
+}
+
+.modifica:active {
     color: rgb(255, 234, 1);
 }
 
