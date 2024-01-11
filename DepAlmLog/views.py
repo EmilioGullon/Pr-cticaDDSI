@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from app.models import Almacen, Producto, contiene
-from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen, ModificarProducto
+from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen, ModificarProducto, ModificarAlmacen
 from django.views import View
 
 # Create your views here.
@@ -110,3 +110,16 @@ def modificar_producto(request, Prod):
         form = ModificarProducto(instance=producto)
 
     return render(request, 'almlog/modificar_producto.html', {'form': form})
+
+def modificar_almacen(request, Alm):
+    almacen = get_object_or_404(Almacen, Alm=Alm)
+
+    if request.method == 'POST':
+        form = ModificarAlmacen(request.POST, instance=almacen)
+        if form.is_valid():
+            form.save()
+            return redirect('/almacenamiento_logistica/listar_almacenes')
+    else:
+        form = ModificarAlmacen(instance=almacen)
+
+    return render(request, 'almlog/modificar_almacen.html', {'form': form})

@@ -54,3 +54,13 @@ class ModificarProducto(forms.ModelForm):
         if precio <= 0:
             raise forms.ValidationError('El precio debe ser un número mayor que 0.')
         return precio
+    
+class ModificarAlmacen(forms.ModelForm):
+    class Meta:
+        model = Almacen
+        fields = ['NombreA', 'Direccion', 'Provincia']
+        labels = {
+            'NombreA': 'Nuevo nombre',
+            'Direccion': 'Nueva dirección',
+            'Provincia': 'Nueva provincia',
+        }
