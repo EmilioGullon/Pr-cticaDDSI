@@ -35,7 +35,7 @@ td a:hover {
     color: rgb(253, 101, 0);
 }
 
-.card td a:active {
+td a:active {
     color: rgb(255, 234, 1);
 }
 
