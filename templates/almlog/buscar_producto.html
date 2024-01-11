@@ -80,9 +80,10 @@
 
                 <div class="card">
                     <div class="button-container">
+                        <a class="modifica" href="{% url 'modificar_producto' Prod=producto.Prod %}"><b>Modificar</b></a>
                         <a class="button delete-button" onclick="confirmDelete('{{ producto.Prod }}')">X</a>
                     </div>
-
+                    <p></p>
                     <table>
                         <tr>
                             <td colspan="3" id="title"><b><a href="{% url 'ubicacion_producto' Prod=producto.Prod %}">{{ producto.Prod }}</a></b></td>

@@ -38,3 +38,19 @@ class ProductoA_EnAlmacen(forms.ModelForm):
             'Prod': 'Código del producto',
             'CantidadC': 'Cantidad del producto',
         }
+
+class ModificarProducto(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['NombreP', 'DescripcionP', 'Precio']
+        labels = {
+            'NombreP': 'Nuevo nombre',
+            'DescripcionP': 'Nueva descripción',
+            'Precio': 'Nuevo precio',
+        }
+
+    def clean_Precio(self):
+        precio = self.cleaned_data['Precio']
+        if precio <= 0:
+            raise forms.ValidationError('El precio debe ser un número mayor que 0.')
+        return precio
