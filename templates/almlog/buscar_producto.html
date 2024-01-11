@@ -85,7 +85,7 @@
 
                     <table>
                         <tr>
-                            <td colspan="3" id="title"><b>{{ producto.Prod }}</b></td>
+                            <td colspan="3" id="title"><b><a href="{% url 'ubicacion_producto' Prod=producto.Prod %}">{{ producto.Prod }}</a></b></td>
                         </tr>
                         <tr>
                             <td id="field">Nombre</td>

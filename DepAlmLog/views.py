@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from app.models import Almacen, Producto, contiene
-from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoAAlmacen
+from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen
 from django.views import View
 
 # Create your views here.
@@ -68,18 +68,18 @@ def eliminar_producto(request, Prod):
     producto.delete()
     return redirect('/almacenamiento_logistica/buscar_producto/?consult={}'.format(nombre))
 
-def producto_a_almacen(request):
+def producto_a_en_almacen(request):
     if request.method == 'POST':
-        form = ProductoAAlmacen(request.POST)
+        form = ProductoA_EnAlmacen(request.POST)
         if form.is_valid():
             contenido = form.save()
             #almacen = contenido.Alm
             #return redirect('/almacenamiento_logistica/#contenido_almacen/{}'.format(almacen.Alm))
             return redirect('/almacenamiento_logistica/almacenes')
     else:
-        form = ProductoAAlmacen()
+        form = ProductoA_EnAlmacen()
 
-    return render(request, 'almlog/producto_a_almacen.html', {'form': form})
+    return render(request, 'almlog/producto_a_en_almacen.html', {'form': form})
 
 def contenido_almacen(request, Alm):
     productos = contiene.objects.filter(Alm=Alm)
@@ -87,4 +87,12 @@ def contenido_almacen(request, Alm):
     return render(request, 'almlog/contenido_almacen.html', {
         'productos': productos,
         'almacen': almacen
+    })
+
+def ubicacion_producto(request, Prod):
+    almacenes = contiene.objects.filter(Prod=Prod)
+    producto = Producto.objects.get(Prod=Prod)
+    return render(request, 'almlog/ubicacion_producto.html', {
+        'producto': producto,
+        'almacenes': almacenes
     })

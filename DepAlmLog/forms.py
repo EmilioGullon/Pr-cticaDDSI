@@ -29,7 +29,7 @@ class CrearProducto(forms.ModelForm):
 class BuscarProducto(forms.Form):
     consulta = forms.CharField(max_length=100, required=False, label='Buscar')
 
-class ProductoAAlmacen(forms.ModelForm):
+class ProductoA_EnAlmacen(forms.ModelForm):
     class Meta:
         model = contiene
         fields = ['Prod', 'Alm', 'CantidadC']

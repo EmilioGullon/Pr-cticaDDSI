@@ -83,6 +83,19 @@ td {
     border: 5px solid whitesmoke;
 }
 
+td a {
+    color: black;
+    text-decoration: none;
+}
+
+td a:hover {
+    color: rgb(0, 8, 155);
+}
+
+td a:active {
+    color: rgb(0, 149, 255);
+}
+
 #title {
     background-color: #586eb1;
 }
