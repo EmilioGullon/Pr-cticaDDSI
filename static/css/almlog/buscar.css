@@ -7,7 +7,8 @@ form {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
-    margin: 0 auto
+    margin: 0 auto;
+    text-align: left;
 }
 
 .errorlist {
@@ -107,11 +108,11 @@ td a:active {
 }
 
 .modifica:hover {
-    color: rgb(0, 8, 155);
+    background-color: rgb(205, 204, 204);
 }
 
 .modifica:active {
-    color: rgb(0, 149, 255);
+    background-color: #8c8c8c;
 }
 
 #title {

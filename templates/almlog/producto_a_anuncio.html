@@ -1,0 +1,34 @@
+{% extends 'almlog/menu.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anunciar producto</title>
+    <link rel="stylesheet" href="{% static '/css/almlog/buscar.css' %}">
+</head>
+<body>
+    <div>
+        <h1>Anunciar producto {{ producto.NombreP }}</h1>
+        <form method="GET">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+                Anunciar
+            </button>
+        </form>
+        <p>{{ mensaje_error }}</p>
+        {% for anuncio in anuncios %}
+            {% if producto in anuncio.Productos.all %}
+                <li>{{ anuncio.CodigoA }} - {{ anuncio.TipoA }}: {{ anuncio.DescripcionA }}</li>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+{% endblock %}

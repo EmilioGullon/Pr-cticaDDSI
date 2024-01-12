@@ -48,13 +48,9 @@ def agregar_anuncio(request):
         tipo = request.POST['tipo']
         desc = request.POST['descripcion']
         loc = request.POST['localizacion']
-        producto = request.POST['producto']
-        try:
-            producto = get_object_or_404(Producto, Prod=producto)
-            if(producto):
-                nuevo_anuncio = Anuncio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
-                nuevo_anuncio.Producto.add(producto)
 
+        try:     
+            Anuncio.objects.create(CodigoA=codigo, TipoA=tipo, DescripcionA=desc, LocalizacionA=loc)
             return redirect('ListaMarketing')
         
         except Exception as e:

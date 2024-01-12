@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from app.models import Almacen, Producto, contiene
-from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen, ModificarProducto, ModificarAlmacen, ModificarCantidad
-from django.views import View
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from app.models import Almacen, Producto, contiene, Anuncio
+from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen, ModificarProducto, ModificarAlmacen, ModificarCantidad, SeleccionarAnuncio
 
 # Create your views here.
 
@@ -151,3 +150,26 @@ def modificar_contiene_producto(request, Prod, Alm):
         form = ModificarCantidad(instance=contenedor)
 
     return render(request, 'almlog/modificar_contiene.html', {'form': form})
+
+def producto_a_anuncio(request, Prod):
+    producto = Producto.objects.get(Prod=Prod)
+    anuncios = Anuncio.objects.all()
+
+    if request.method == 'GET':
+        form = SeleccionarAnuncio(request.GET)
+        if form.is_valid():
+            eleccion = form.cleaned_data['eleccion']
+            try:
+                anuncio = Anuncio.objects.get(CodigoA=eleccion)
+                anuncio.Productos.add(producto)
+            except Exception as e:
+                mensaje_error = f"Error: no existe ningún anuncio con este código."
+    else:
+        form = SeleccionarAnuncio()
+
+    return render(request, 'almlog/producto_a_anuncio.html', {
+        'producto': producto,
+        'anuncios': anuncios,
+        'form': form,
+        'mensaje_error': mensaje_error
+    })
