@@ -1,5 +1,5 @@
 from django import forms
-from app.models import Almacen, Producto, contiene
+from app.models import Almacen, Producto, contiene, Anuncio
 
 class CrearAlmacen(forms.ModelForm):
     class Meta:
@@ -78,3 +78,6 @@ class ModificarAlmacen(forms.ModelForm):
             'Direccion': 'Nueva dirección',
             'Provincia': 'Nueva provincia',
         }
+
+class SeleccionarAnuncio(forms.Form):
+    eleccion = forms.CharField(max_length=100, required=False, label='Código del anuncio')

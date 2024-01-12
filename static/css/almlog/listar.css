@@ -50,11 +50,11 @@ td a:active {
 }
 
 .modifica:hover {
-    color: rgb(253, 101, 0);
+    background-color: rgb(205, 204, 204);
 }
 
 .modifica:active {
-    color: rgb(255, 234, 1);
+    background-color: #8c8c8c;
 }
 
 #title {
