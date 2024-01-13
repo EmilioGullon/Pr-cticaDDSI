@@ -1,0 +1,28 @@
+{% extends 'almlog/menu.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar almacén</title>
+    <link rel="stylesheet" href="{% static '/css/almlog/agregar.css' %}">
+</head>
+<body>
+    <div>
+        <h1>Modificar almacén</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+                Guardar
+            </button>
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock %}

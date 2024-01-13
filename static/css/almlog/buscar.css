@@ -1,17 +1,67 @@
-.card {
-<<<<<<< HEAD
-    background-color: black;
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
     color: black;
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-top: 2px;
-=======
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.errorlist {
+    list-style-type: none;
+    margin: 0;
+    color: red;
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+p {
+    margin: 4px;
+}
+
+button {
+    align-self: flex-end;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: rgb(205, 204, 204);
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #8c8c8c;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+.descripcion-input {
+    width: 100%;
+    height: 100px; /* ajusta la altura según tus necesidades */
+    resize: vertical; /* permite redimensionar verticalmente si es necesario */
+}
+
+.card {
     background-color: #404040;
     color: black;
     padding-left: 2px;
     padding-right: 2px;
     padding-top: 4px;
->>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
     padding-bottom: 2px;
     margin-bottom: 10px;
     margin-left: auto;
@@ -34,19 +84,17 @@ td {
     border: 5px solid whitesmoke;
 }
 
-<<<<<<< HEAD
-=======
 td a {
     color: black;
     text-decoration: none;
 }
 
 td a:hover {
-    color: rgb(253, 101, 0);
+    color: rgb(0, 8, 155);
 }
 
 td a:active {
-    color: rgb(255, 234, 1);
+    color: rgb(0, 149, 255);
 }
 
 .modifica {
@@ -67,19 +115,16 @@ td a:active {
     background-color: #8c8c8c;
 }
 
->>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 #title {
-    background-color: rgb(243, 183, 44);
+    background-color: #586eb1;
 }
 
 #field {
-    background-color: rgb(245, 211, 132);
+    background-color: #7c94d9;
 }
 
 #valor {
-    background-color: rgb(245, 234, 210);
-<<<<<<< HEAD
-=======
+    background-color: #a3b3e2;
 }
 
 .button-container {
@@ -137,5 +182,4 @@ td a:active {
 
 .button.delete-button:hover {
     background-color: hsl(0, 91%, 45%); /* Cambia el color al pasar el ratón por encima */
->>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 }

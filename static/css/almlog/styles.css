@@ -90,6 +90,7 @@ li {
     background-color: #45a049;
 }
 
+<<<<<<< HEAD
 .delete-modal {
     display: none;
     position: fixed;
@@ -132,6 +133,8 @@ li {
     background-color: #cc0000; /* Cambia el color al pasar el ratón por encima */
 }
 
+=======
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 label {
     display: block;
     margin: 10px 0 5px;

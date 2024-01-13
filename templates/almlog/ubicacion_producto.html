@@ -1,0 +1,35 @@
+{% extends 'almlog/menu.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicación de producto</title>
+    <link rel="stylesheet" href="{% static '/css/almlog/contenido.css' %}">
+</head>
+<body>
+    <h1>Ubicación del producto {{ producto.NombreP }}</h1>
+
+        <table>
+            <tr>
+                <td id="title">Código del almacén</td>
+                <td id="title">Nombre del almacén</td>
+                <td id="title">Cantidad</td>
+            </tr>
+            {% for almacen in almacenes %}
+            <tr>
+                <td id="valor">{{ almacen.Alm.Alm }}</td>
+                <td id="valor">{{ almacen.Alm.NombreA }}</td>
+                <td id="valor">{{ almacen.CantidadC }} <a href="{% url 'modificar_contiene_producto' Prod=producto.Prod Alm=almacen.Alm.Alm %}">✏️</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+</body>
+</html>
+
+{% endblock %}

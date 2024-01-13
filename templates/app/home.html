@@ -2,6 +2,7 @@
 {% block content %}
 {% if request.user.is_authenticated %}
 <hr>
+
 <header>
     <h1><marquee>Bienvenid@, {{ user.first_name | upper }} {{ user.last_name | upper }} a GAME CENTER</marquee></h1>
 </header>
@@ -13,8 +14,22 @@
 </section>
 
 </hr>
+{% else %}
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            {% load static %}
+            <img src="{%static 'image/Logo.jpg'%}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3">¡Juega como quieras!</h1>
+            <p class="lead">Encuentra los mejores juegos para todas las plataformas y todos los gustos. Tenemos una amplia selección de juegos de las mejores marcas, y nuestro personal está altamente cualificado para ayudarte a encontrar el juego perfecto para ti. ¡Ven a visitarnos y descubre por qué somos la mejor tienda de videojuegos de la ciudad!</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Ingresa</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Registrate</button>
+            </div>
+        </div>
+        </div>
+    </div>
 {% endif %}
-<footer>
-    <p>&copy; 2023 GAME CENTER. All rights reserved.</p>
-</footer>
 {% endblock  %}

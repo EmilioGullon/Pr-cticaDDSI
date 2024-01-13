@@ -4,21 +4,17 @@
 
 {% load crispy_forms_tags %}
     <section>
-        <div class='inicio_sesion'>
-            <h2>Iniciar sesión</h2>
-        </div>
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
-
-            <div class="card mx-auto" style="width: 32rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Login</h5>
-                    {{ form | crispy }}
-                    <!--<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                    <a href={% url 'home' %} class="card-link">Inicio</a>
-                    <a href={% url 'register' %} class="card-link">Registrase</a>
-                    <button class="btn btn-sm btn-primary float-end" type="submit">Iniciar sesión</button>
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="card mx-auto" style="width: 32rem;">
+                    <div class="card-body">
+                        <h3 class="card-title">Login</h3>
+                        {{ form | crispy }}
+                        <!--<h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                        <button class="btn btn-sm btn-dark float-end" type="submit">Iniciar sesión</button>
+                    </div>
                 </div>
             </div>
         </form>
