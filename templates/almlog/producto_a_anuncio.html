@@ -21,7 +21,6 @@
                 Anunciar
             </button>
         </form>
-        <p>{{ mensaje_error }}</p>
         {% for anuncio in anuncios %}
             {% if producto in anuncio.Productos.all %}
                 <li>{{ anuncio.CodigoA }} - {{ anuncio.TipoA }}: {{ anuncio.DescripcionA }}</li>
