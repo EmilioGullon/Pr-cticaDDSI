@@ -163,7 +163,7 @@ def producto_a_anuncio(request, Prod):
                 anuncio = Anuncio.objects.get(CodigoA=eleccion)
                 anuncio.Productos.add(producto)
             except Exception as e:
-                mensaje_error = f"Error: no existe ningún anuncio con este código."
+                f"Error: no existe ningún anuncio con este código."
     else:
         form = SeleccionarAnuncio()
 
@@ -171,5 +171,4 @@ def producto_a_anuncio(request, Prod):
         'producto': producto,
         'anuncios': anuncios,
         'form': form,
-        'mensaje_error': mensaje_error
     })
