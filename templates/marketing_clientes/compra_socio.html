@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar producto comprado a un socio</title>
+</head>
+<body>
+    <div>
+        <h1>Asignar producto comprado a un socio</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>
+                Agregar
+            </button>
+        </form>
+    </div>
+</body>
+</html>

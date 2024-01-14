@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
+from django import forms
 from django.views.generic import ListView
-from app.models import Socio, Anuncio, Producto
+from app.models import Socio, Anuncio, Producto, compra
 from itertools import chain
 from .forms import SeleccionarProducto
 # Create your views here.
@@ -170,8 +171,8 @@ def modificar_anuncio(request, CodigoA):
             if(descn):
                 anunciomod.DescripcionA = descn
             
-            if(codigon):
-                anunciomod.CodigoA = codigon
+            #if(codigon):
+            #    anunciomod.CodigoA = codigon
             
             if(locn):
                 anunciomod.LocalizacionA = locn
@@ -215,3 +216,25 @@ def eliminar_el_producto(request, CodigoA, Prod):
     anuncio = Anuncio.objects.get(CodigoA=CodigoA)
     anuncio.Productos.remove(producto)
     return redirect('/marketing_clientes/insertar_producto/{}'.format(anuncio.CodigoA))
+
+def socio_comprar(request):
+    if request.method == 'POST':
+        form = ComprarProd(request.POST)
+        if form.is_valid():
+            compra = form.save()
+            return redirect('/marketing_clientes/compra_socio')
+    else:
+        form = ComprarProd()
+
+    return render(request, 'marketing_clientes/compra_socio.html', {'form': form})
+
+class ComprarProd(forms.ModelForm):
+    class Meta:
+        model = compra
+        fields = ['Prod', 'DNIS', 'CantidadC', 'FechaC']
+        labels = {
+            'DNIS': 'DNI del socio',
+            'Prod': 'Código del producto',
+            'CantidadC': 'Cantidad del producto',
+            'FechaC' : 'Fecha de la compra'
+        }
