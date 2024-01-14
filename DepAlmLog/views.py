@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-from django.shortcuts import render, redirect, get_object_or_404
-from app.models import Almacen, Producto
-from .forms import CrearAlmacen, CrearProducto
-from django.views import View
-=======
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from app.models import Almacen, Producto, contiene, Anuncio
 from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen, ModificarProducto, ModificarAlmacen, ModificarCantidad, SeleccionarAnuncio
->>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 
 # Create your views here.
 
@@ -37,32 +30,23 @@ def crear_almacen(request):
 
     return render(request, 'almlog/agregar_almacen.html', {'form': form})
 
-<<<<<<< HEAD
-=======
+
 def eliminar_almacen(request, Alm):
     almacen = get_object_or_404(Almacen, Alm=Alm)
     almacen.delete()
     return redirect('/almacenamiento_logistica/listar_almacenes')
 
->>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 def crear_producto(request):
     if request.method == 'POST':
         form = CrearProducto(request.POST)
         if form.is_valid():
-<<<<<<< HEAD
-            form.save()
-            return redirect('/almacenamiento_logistica/productos')
-=======
             producto = form.save()
             nombre = producto.NombreP
             return redirect('/almacenamiento_logistica/buscar_producto/?consulta={}'.format(nombre))
->>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
     else:
         form = CrearProducto()
 
     return render(request, 'almlog/agregar_producto.html', {'form': form})
-<<<<<<< HEAD
-=======
 
 def buscar_producto(request):
     if request.method == 'GET':
@@ -180,7 +164,7 @@ def producto_a_anuncio(request, Prod):
                 anuncio = Anuncio.objects.get(CodigoA=eleccion)
                 anuncio.Productos.add(producto)
             except Exception as e:
-                mensaje_error = f"Error: no existe ningún anuncio con este código."
+                f"Error: no existe ningún anuncio con este código."
     else:
         form = SeleccionarAnuncio()
 
@@ -188,6 +172,4 @@ def producto_a_anuncio(request, Prod):
         'producto': producto,
         'anuncios': anuncios,
         'form': form,
-        'mensaje_error': mensaje_error
     })
->>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
