@@ -164,11 +164,16 @@
             <div class="button-container">
                 <a href="agregar_anuncio" class="button">Agregar</a>
             </div>
+            <div class="button-container">
+                <a href="anunciar_producto" class="button">Anunciar Producto</a>
+            </div>
             <div>
                 <form method="post" action="{% url 'buscar_anuncio' %}">
                     {% csrf_token %}
                     <input type="text" name="codigo" required>
                     <input type="submit" value="Buscar">
+                </form>
+            </div>
                 </form>
             </div>
         </div>
