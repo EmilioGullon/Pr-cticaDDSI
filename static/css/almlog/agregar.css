@@ -7,8 +7,12 @@ form {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
+<<<<<<< HEAD
+    margin: 0 auto
+=======
     margin: 0 auto;
     text-align: left;
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 }
 
 .errorlist {

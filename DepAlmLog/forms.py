@@ -1,5 +1,9 @@
 from django import forms
+<<<<<<< HEAD
+from app.models import Almacen, Producto
+=======
 from app.models import Almacen, Producto, contiene, Anuncio
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 
 class CrearAlmacen(forms.ModelForm):
     class Meta:
@@ -25,6 +29,8 @@ class CrearProducto(forms.ModelForm):
         widgets = {
             'DescripcionP': forms.Textarea(attrs={'class': 'descripcion-input'}),
         }
+<<<<<<< HEAD
+=======
 
 class BuscarProducto(forms.Form):
     consulta = forms.CharField(max_length=100, required=False, label='Buscar')
@@ -81,3 +87,4 @@ class ModificarAlmacen(forms.ModelForm):
 
 class SeleccionarAnuncio(forms.Form):
     eleccion = forms.CharField(max_length=100, required=False, label='Código del anuncio')
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89

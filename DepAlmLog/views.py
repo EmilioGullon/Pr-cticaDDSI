@@ -30,6 +30,7 @@ def crear_almacen(request):
 
     return render(request, 'almlog/agregar_almacen.html', {'form': form})
 
+
 def eliminar_almacen(request, Alm):
     almacen = get_object_or_404(Almacen, Alm=Alm)
     almacen.delete()
