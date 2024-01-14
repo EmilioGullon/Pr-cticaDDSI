@@ -164,7 +164,7 @@ def producto_a_anuncio(request, Prod):
                 anuncio = Anuncio.objects.get(CodigoA=eleccion)
                 anuncio.Productos.add(producto)
             except Exception as e:
-                f"Error: no existe ningún anuncio con este código."
+                mensaje_error = f"Error: no existe ningún anuncio con este código."
     else:
         form = SeleccionarAnuncio()
 
@@ -172,6 +172,7 @@ def producto_a_anuncio(request, Prod):
         'producto': producto,
         'anuncios': anuncios,
         'form': form,
+<<<<<<< HEAD
     })
 
 def eliminar_de_anuncio(request, Prod, CodigoA):
@@ -179,3 +180,7 @@ def eliminar_de_anuncio(request, Prod, CodigoA):
     anuncio = Anuncio.objects.get(CodigoA=CodigoA)
     anuncio.Productos.remove(producto)
     return redirect('/almacenamiento_logistica/anunciar_producto/{}'.format(producto.Prod))
+=======
+        'mensaje_error': mensaje_error
+    })
+>>>>>>> parent of 10aea85 (Merge pull request #39 from EmilioGullon/lorena)
