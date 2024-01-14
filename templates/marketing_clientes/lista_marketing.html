@@ -150,6 +150,7 @@
                     <li>
                         <div>{{ socio.NombreS }} {{ socio.Apellido1S }} {{ socio.Apellido2S }} - {{ socio.DNIS }}</div>
                         <div class="button-container">
+                            <a class="producto" href="{% url 'compra_socio' DNIS=socio.DNIS %}">🛒</a>
                             <a class="button delete-button" onclick="confirmDelete('{{ socio.DNIS }}', '/marketing_clientes/eliminar_socio/')">X</a>
                         </div>
                     </li>
@@ -157,9 +158,6 @@
             </ul>
             <div class="button-container">
                 <a href="agregar_socio" class="button">Agregar</a>
-            </div>
-            <div class="button-container">
-                <a href="compra_socio" class="button">Asignar Compra a Socio</a>
             </div>
             <div>
                 <form method="post" action="{% url 'buscar_socio' %}">
