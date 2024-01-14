@@ -127,6 +127,14 @@ td a:active {
     background-color: #a3b3e2;
 }
 
+#name {
+    background-color: #b3b3b3;
+}
+
+#info {
+    background-color: #d6d6d6;
+}
+
 .button-container {
     display: flex;
     justify-content: flex-end;
