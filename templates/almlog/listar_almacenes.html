@@ -8,7 +8,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+    <title>Agregar almacen</title>
+=======
     <title>Listar almacenes</title>
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
     <link rel="stylesheet" href="{% static '/css/almlog/listar.css' %}">
 </head>
 <body>
@@ -16,6 +20,12 @@
 
     {% for almacen in almacenes %}
 
+<<<<<<< HEAD
+    <div class="card">
+        <table>
+            <tr>
+                <td colspan="3" id="title"><b>{{ almacen.Alm }}</b></td>
+=======
     <!-- Delete Modal -->
     <div id="deleteModal" class="delete-modal">
         <div class="modal-content">
@@ -76,6 +86,7 @@
         <table>
             <tr>
                 <td colspan="3" id="title"><b><a href="{% url 'contenido_almacen' Alm=almacen.Alm %}">{{ almacen.Alm }}</a></b></td>
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
             </tr>
             <tr>
                 <td id="field">Nombre</td>
