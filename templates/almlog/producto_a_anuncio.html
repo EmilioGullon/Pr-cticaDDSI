@@ -21,8 +21,13 @@
                 Anunciar
             </button>
         </form>
+<<<<<<< HEAD
         <h1>Anuncios en los que se anuncia</h1>
         {% for anuncio in anuncios %}    
+=======
+        <p>{{ mensaje_error }}</p>
+        {% for anuncio in anuncios %}
+>>>>>>> parent of 10aea85 (Merge pull request #39 from EmilioGullon/lorena)
             {% if producto in anuncio.Productos.all %}
                 <div class="card">
                     <div class="button-container">
