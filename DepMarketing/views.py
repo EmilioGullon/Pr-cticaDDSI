@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
+from django import forms
 from django.views.generic import ListView
-from app.models import Socio, Anuncio, Producto
+from app.models import Socio, Anuncio, Producto, compra
 from itertools import chain
 # Create your views here.
 
@@ -22,12 +23,11 @@ def agregar_socio(request):
         apellido2 = request.POST['Segundo']
         telefono = request.POST['Telefono']
         email = request.POST['E-mail']
-        producto = request.POST['producto']
         try:
-            producto = get_object_or_404(Producto, Prod=producto)
-            if(producto):
-                nuevo_socio = Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
-                nuevo_socio.Producto.add(producto)
+            #producto = get_object_or_404(Producto, Prod=producto)
+            #if(producto):
+            nuevo_socio = Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
+            #nuevo_socio.Producto.add(producto)
 
             return redirect('ListaMarketing')
         except Exception as e:
@@ -159,7 +159,6 @@ def modificar_anuncio(request, CodigoA):
     if request.method == 'POST':
         tipon = request.POST.get('tipo', '')
         descn = request.POST.get('descripcion', '')
-        codigon = request.POST.get('codigo', '')
         locn = request.POST.get('localizacion', '')
         
         try:
@@ -168,9 +167,6 @@ def modificar_anuncio(request, CodigoA):
             
             if(descn):
                 anunciomod.DescripcionA = descn
-            
-            if(codigon):
-                anunciomod.CodigoA = codigon
             
             if(locn):
                 anunciomod.LocalizacionA = locn
@@ -188,3 +184,50 @@ def modificar_anuncio(request, CodigoA):
     
 
     return render(request, 'marketing_clientes/modificar_anuncio.html', {'anuncio': anunciomod})
+
+def anunciar_producto(request, Prod):
+    producto = Producto.objects.get(Prod=Prod)
+    anuncios = Anuncio.objects.all()
+
+    if request.method == 'GET':
+        form = SeleccionarProducto(request.GET)
+        if form.is_valid():
+            eleccion = form.cleaned_data['eleccion']
+            try:
+                anuncio = Anuncio.objects.get(CodigoA=eleccion)
+                anuncio.Productos.add(producto)
+            except Exception as e:
+                f"Error: no existe ningún anuncio con este código."
+    else:
+        form = SeleccionarProducto()
+
+    return render(request, 'marketing_clientes/anuncio_a_producto.html', {
+        'producto': producto,
+        'anuncios': anuncios,
+        'form': form,
+    })
+
+def socio_comprar(request):
+    if request.method == 'POST':
+        form = ComprarProd(request.POST)
+        if form.is_valid():
+            compra = form.save()
+            return redirect('/marketing_clientes/compra_socio')
+    else:
+        form = ComprarProd()
+
+    return render(request, 'marketing_clientes/compra_socio.html', {'form': form})
+
+class SeleccionarProducto(forms.Form):
+    eleccion = forms.CharField(max_length=100, required=False, label='Código del producto')
+
+class ComprarProd(forms.ModelForm):
+    class Meta:
+        model = compra
+        fields = ['Prod', 'DNIS', 'CantidadC', 'FechaC']
+        labels = {
+            'DNIS': 'DNI del socio',
+            'Prod': 'Código del producto',
+            'CantidadC': 'Cantidad del producto',
+            'FechaC' : 'Fecha de la compra'
+        }
