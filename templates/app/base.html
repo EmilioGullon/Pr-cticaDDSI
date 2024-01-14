@@ -22,6 +22,9 @@
             {% if request.user.is_authenticated %}
             <li><a href={% url 'empleados'%} class="nav-link px-2 text-white">Empleados</a></li>
             <li><a href="/finanzas/" class="nav-link px-2 text-white">Finanzas</a></li>
+            <li><a href="/marketing_clientes/" class="nav-link px-2 text-white">Marketing y Clientes</a></li>
+            <li><a href="/rrhh/" class="nav-link px-2 text-white">Recursos Humanos</a></li>
+            <li><a href="/almacenamiento_logistica/" class="nav-link px-2 text-white">Almacenamiento y Logística</a></li>
             {% else %}
 
             {% endif %}
