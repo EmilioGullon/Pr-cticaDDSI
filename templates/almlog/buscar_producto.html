@@ -80,8 +80,8 @@
 
                 <div class="card">
                     <div class="button-container">
-                        <a class="modifica" href="{% url 'modificar_producto' Prod=producto.Prod %}"><b>✏️</b></a>&nbsp
-                        <a class="modifica" href="{% url 'anunciar_producto' Prod=producto.Prod %}"><b>📢</b></a>
+                        <a class="modifica" href="{% url 'modificar_producto' Prod=producto.Prod %}">✏️</a>&nbsp
+                        <a class="modifica" href="{% url 'anunciar_producto' Prod=producto.Prod %}">📢</a>
                         <a class="button delete-button" onclick="confirmDelete('{{ producto.Prod }}')">X</a>
                     </div>
                     <p></p>

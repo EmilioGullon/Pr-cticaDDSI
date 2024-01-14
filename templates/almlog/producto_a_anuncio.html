@@ -21,13 +21,30 @@
                 Anunciar
             </button>
         </form>
-        <p>{{ mensaje_error }}</p>
-        {% for anuncio in anuncios %}
+        <h1>Anuncios en los que se anuncia</h1>
+        {% for anuncio in anuncios %}    
             {% if producto in anuncio.Productos.all %}
-                <li>{{ anuncio.CodigoA }} - {{ anuncio.TipoA }}: {{ anuncio.DescripcionA }}</li>
+                <div class="card">
+                    <div class="button-container">
+                        <a class="modifica" href="{% url 'eliminar_de_anuncio' Prod=producto.Prod CodigoA=anuncio.CodigoA %}">❌</a>&nbsp
+                    </div>
+                    <p></p>
+                    <table>
+                        <tr>
+                            <td id="name">Código</td>
+                            <td id="name">Tipo</td>
+                            <td id="name">Descripción</td>
+                        </tr>
+                        <tr>
+                            <td id="info">{{ anuncio.CodigoA }}</td>
+                            <td id="info">{{ anuncio.TipoA }}</td>
+                            <td id="info">{{ anuncio.DescripcionA }}</td>
+                        </tr>
+                    </table>
+                </div>
             {% endif %}
         {% endfor %}
-    </div>
+    </div> 
 </body>
 </html>
 
