@@ -16,3 +16,4 @@ urlpatterns = [
     path('insertar_producto/<str:CodigoA>/', anuncio_de_producto, name='insertar_producto'),
     path('eliminar_el_producto/<str:CodigoA>/<int:Prod>', eliminar_el_producto, name='eliminar_el_producto'),
     path('compra_socio', socio_comprar, name='compra_socio'),
+]
