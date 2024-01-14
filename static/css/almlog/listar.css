@@ -1,9 +1,17 @@
 .card {
+<<<<<<< HEAD
+    background-color: black;
+    color: black;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+=======
     background-color: #404040;
     color: black;
     padding-left: 2px;
     padding-right: 2px;
     padding-top: 4px;
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
     padding-bottom: 2px;
     margin-bottom: 10px;
     margin-left: auto;
@@ -26,6 +34,8 @@ td {
     border: 5px solid whitesmoke;
 }
 
+<<<<<<< HEAD
+=======
 td a {
     color: black;
     text-decoration: none;
@@ -57,6 +67,7 @@ td a:active {
     background-color: #8c8c8c;
 }
 
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 #title {
     background-color: rgb(243, 183, 44);
 }
@@ -67,6 +78,8 @@ td a:active {
 
 #valor {
     background-color: rgb(245, 234, 210);
+<<<<<<< HEAD
+=======
 }
 
 .button-container {
@@ -124,4 +137,5 @@ td a:active {
 
 .button.delete-button:hover {
     background-color: hsl(0, 91%, 45%); /* Cambia el color al pasar el ratón por encima */
+>>>>>>> d1f1acd8fa0de5bcd66b00db05e09bdf29413a89
 }

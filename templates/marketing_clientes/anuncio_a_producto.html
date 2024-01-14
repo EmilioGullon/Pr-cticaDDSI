@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Socio</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -54,24 +51,27 @@
             background-color: #45a049;
         }
     </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anunciar producto</title>
 </head>
 <body>
-    <form method="post" action="{% url 'agregar_socio' %}">
-        {% csrf_token %}
-        <h1>Agregar Socio</h1>
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" required>
-        <label for="Primero">Primer Apellido:</label>
-        <input type="text" name="Primero" required>
-        <label for="Segundo">Segundo Apellido:</label>
-        <input type="text" name="Segundo" required>
-        <label for="Telefono">Teléfono:</label>
-        <input type="text" name="Telefono" required>
-        <label for="E-mail">E-mail:</label>
-        <input type="text" name="E-mail" required>
-        <label for="dni">DNI:</label>
-        <input type="text" name="dni" required>
-        <input type="submit" value="Agregar">
-    </form>
+    <div>
+        <h1>Anunciar productos {{ anuncios.CodigoA }}</h1>
+        <form method="GET">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+                Anunciar
+            </button>
+        </form>
+        {% for anuncio in anuncios %}
+            {% if producto in anuncio.Productos.all %}
+                <li>{{ anuncio.CodigoA }} - {{ anuncio.TipoA }}: {{ anuncio.DescripcionA }}</li>
+            {% endif %}
+        {% endfor %}
+    </div>
 </body>
 </html>
+
+{% endblock %}
