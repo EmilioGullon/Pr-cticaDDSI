@@ -3,6 +3,7 @@ from django import forms
 from django.views.generic import ListView
 from app.models import Socio, Anuncio, Producto, compra
 from itertools import chain
+from .forms import SeleccionarProducto
 # Create your views here.
 
 class ListaMarketing(ListView):
@@ -185,27 +186,31 @@ def modificar_anuncio(request, CodigoA):
 
     return render(request, 'marketing_clientes/modificar_anuncio.html', {'anuncio': anunciomod})
 
-def anunciar_producto(request, Prod):
-    producto = Producto.objects.get(Prod=Prod)
-    anuncios = Anuncio.objects.all()
+def anuncio_de_producto(request, CodigoA):
+    anuncio = Anuncio.objects.get(CodigoA=CodigoA)
 
     if request.method == 'GET':
         form = SeleccionarProducto(request.GET)
         if form.is_valid():
             eleccion = form.cleaned_data['eleccion']
             try:
-                anuncio = Anuncio.objects.get(CodigoA=eleccion)
+                producto = Producto.objects.get(Prod=eleccion)
                 anuncio.Productos.add(producto)
             except Exception as e:
-                f"Error: no existe ningún anuncio con este código."
+                f"Error: no existe ningún producto con este código."
     else:
         form = SeleccionarProducto()
 
-    return render(request, 'marketing_clientes/anuncio_a_producto.html', {
-        'producto': producto,
-        'anuncios': anuncios,
+    return render(request, 'marketing_clientes/anuncio_de_producto.html', {
+        'anuncio': anuncio,
         'form': form,
     })
+
+def eliminar_el_producto(request, CodigoA, Prod):
+    producto = Producto.objects.get(Prod=Prod)
+    anuncio = Anuncio.objects.get(CodigoA=CodigoA)
+    anuncio.Productos.remove(producto)
+    return redirect('/marketing_clientes/insertar_producto/{}'.format(anuncio.CodigoA))
 
 def socio_comprar(request):
     if request.method == 'POST':
@@ -217,9 +222,6 @@ def socio_comprar(request):
         form = ComprarProd()
 
     return render(request, 'marketing_clientes/compra_socio.html', {'form': form})
-
-class SeleccionarProducto(forms.Form):
-    eleccion = forms.CharField(max_length=100, required=False, label='Código del producto')
 
 class ComprarProd(forms.ModelForm):
     class Meta:

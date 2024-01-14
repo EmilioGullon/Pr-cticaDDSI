@@ -173,3 +173,9 @@ def producto_a_anuncio(request, Prod):
         'anuncios': anuncios,
         'form': form,
     })
+
+def eliminar_de_anuncio(request, Prod, CodigoA):
+    producto = Producto.objects.get(Prod=Prod)
+    anuncio = Anuncio.objects.get(CodigoA=CodigoA)
+    anuncio.Productos.remove(producto)
+    return redirect('/almacenamiento_logistica/anunciar_producto/{}'.format(producto.Prod))
