@@ -24,12 +24,12 @@ def agregar_socio(request):
         apellido2 = request.POST['Segundo']
         telefono = request.POST['Telefono']
         email = request.POST['E-mail']
-        producto = request.POST['producto']
+        #producto = request.POST['producto']
         try:
-            producto = get_object_or_404(Producto, Prod=producto)
-            if(producto):
-                nuevo_socio = Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
-                nuevo_socio.Producto.add(producto)
+            #producto = get_object_or_404(Producto, Prod=producto)
+            #if(producto):
+            nuevo_socio = Socio.objects.create(DNIS=dni, NombreS=nombre, Apellido1S=apellido1, Apellido2S=apellido2, TelefonoS=telefono, E_mailS=email)
+            #nuevo_socio.Producto.add(producto)
 
             return redirect('ListaMarketing')
         except Exception as e:
