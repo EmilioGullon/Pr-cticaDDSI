@@ -1,5 +1,5 @@
 from django import forms
-from app.models import Almacen, Producto, contiene, Anuncio
+from app.models import Almacen, Producto, contiene
 
 class CrearAlmacen(forms.ModelForm):
     class Meta:
