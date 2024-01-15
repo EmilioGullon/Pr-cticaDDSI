@@ -56,18 +56,15 @@
     </style>
 </head>
 <body>
-    <form method="post" action="{% url 'agregar_nomina' %}">
-        {% csrf_token %}
+    <div>
         <h1>Agregar Nómina</h1>
-        <label for="dni">DNI del empleado (sin letra):</label>
-        <input type="number" name="dni" required>
-        <label for="num_nomina">Nº Nómina:</label>
-        <input type="text" name="num_nomina" required>
-        <label for="bruto">Cantidad en bruto:</label>
-        <input type="text" name="bruto" required>
-        <label for="impuestos">Impuestos:</label>
-        <input type="text" name="impuestos" required>
-        <input type="submit" value="Agregar">
-    </form>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>
+                Agregar
+            </button>
+        </form>
+    </div>
 </body>
 </html>

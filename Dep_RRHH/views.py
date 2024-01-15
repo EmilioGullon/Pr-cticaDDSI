@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from app.models import Empleado,Nomina_tiene
 from Dep_Finanza.views import agregar_gasto_nomina
 from itertools import chain
+from .forms import CrearNomina
 # Create your views here.
 
 class ListaEmpleados(ListView):
@@ -49,26 +50,37 @@ def eliminar_empleado(request, DNIE):
     empleado.delete()
     return redirect('ListaRRHH')
 
+#def agregar_nomina(request):
+#    if request.method == 'POST':
+#        num_nomina = request.POST['num_nomina']
+#        bruto = request.POST['bruto']
+ #       impuestos = request.POST['impuestos']
+  #      dni = request.POST['dni']
+#
+ #       try:
+  #          empleado = get_object_or_404(Empleado, DNIE=dni)
+   #         nom = Nomina_tiene.objects.create(Nomina=num_nomina, Bruto=bruto, Impuesto=impuestos, DNIE=empleado)
+    #        agregar_gasto_nomina(nom)
+     #       return redirect('ListaRRHH')
+      #  except Exception as e:
+       #     # Manejar el error aquí, si es necesario
+        #    print(f"Error al agregar nómina: {e}")
+         #   # Renderizar la misma página en caso de error
+          #  return render(request, 'rrhh/agregar_nomina.html')
+
+    #return render(request, 'rrhh/agregar_nomina.html')
+
+
 def agregar_nomina(request):
     if request.method == 'POST':
-        num_nomina = request.POST['num_nomina']
-        bruto = request.POST['bruto']
-        impuestos = request.POST['impuestos']
-        dni = request.POST['dni']
-
-        try:
-            empleado = Empleado.objects.get(DNIE=dni)
-            nom = Nomina_tiene.objects.create(Nomina=num_nomina, Bruto=bruto, Impuesto=impuestos, DNIE=empleado.DNIE)
-            agregar_gasto_nomina(nom)
+        form = CrearNomina(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect('ListaRRHH')
-        except Exception as e:
-            # Manejar el error aquí, si es necesario
-            print(f"Error al agregar nómina: {e}")
-            # Renderizar la misma página en caso de error
-            return render(request, 'rrhh/agregar_nomina.html')
+    else:
+        form = CrearNomina()
 
-    return render(request, 'rrhh/agregar_nomina.html')
-
+    return render(request, 'rrhh/agregar_nomina.html', {'form': form})
 
 def eliminar_nomina(request, Nomina):
     nomina = get_object_or_404(Nomina_tiene, Nomina=Nomina)
