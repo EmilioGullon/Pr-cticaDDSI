@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,7 +9,7 @@
 </head>
 <body>
     <div>
-        <h1>Asignar producto comprado a un socio</h1>
+        <h1>Asignar producto comprado al socio {{ socio.NombreS }}</h1>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
@@ -16,7 +18,7 @@
             </button>
         </form>
         <h1>Productos comprados</h1>
-        {% for producto in socio.Productos.all %}
+        
             <div class="card">
                 <p></p>
                 <table>
@@ -25,14 +27,16 @@
                         <td id="name">Nombre</td>
                         <td id="name">Descripción</td>
                     </tr>
-                    <tr>
-                        <td id="info">{{ producto.Prod }}</td>
-                        <td id="info">{{ producto.NombreP }}</td>
-                        <td id="info">{{ producto.DescripcionP }}</td>
-                    </tr>
+                    
+                    {% for producto in socio.Productos.all %}
+                        <tr>
+                            <td id="info">{{ producto.Prod }}</td>
+                            <td id="info">{{ producto.NombreP }}</td>
+                            <td id="info">{{ producto.DescripcionP }}</td>
+                        </tr>
+                    {% endfor %}
                 </table>
             </div>
-        {% endfor %}
     </div>
     </div>
 </body>

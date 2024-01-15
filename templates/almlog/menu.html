@@ -13,9 +13,15 @@
 <nav class="navbar" class="container">
     <table>
         <tr>
-            <td><a href="{% url 'index' %}">INICIO</a></td>
-            <td><a href="{% url 'almacenes' %}">ALMACENES</a></td>
-            <td><a href="{% url 'productos' %}">PRODUCTOS</a></td>
+            <td><a href="/finanzas/">FINANZAS</a></td>
+            <td><a href="/marketing_clientes/">MARKETING & CLIENTES</a></td>
+            <td><a href="/rrhh/">RECURSOS HUMANOS</a></td>
+            <td><a href="/almacenamiento_logistica/">ALMACENAMIENTO & LOGÍSTICA</a></td>
+        </tr>
+        <tr>
+            <td colspan="2"><a href="{% url 'almacenes' %}">ALMACENES</a></td>
+            <td colspan="2"><a href="{% url 'productos' %}">PRODUCTOS</a></td>
+        </tr>
     </table>
 </nav>
 
