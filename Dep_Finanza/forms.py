@@ -4,11 +4,10 @@ from app.models import GastoN, GastoP, Ingreso
 class CrearGastoN(forms.ModelForm):
     class Meta:
         model = GastoN
-        fields = ['Num_factura', 'Receptor', 'CantG', 'Fecha', 'Nomina_tiene']
+        fields = ['Num_factura', 'Receptor', 'Fecha', 'Nomina_tiene']
         labels = {
             'Num_factura': 'Nº Factura',
             'Receptor': 'Nombre del remitente',
-            'CantG': 'Cantidad',
             'Fecha': 'Fecha',
             'Nomina_tiene': 'Código de la nómina',
         }

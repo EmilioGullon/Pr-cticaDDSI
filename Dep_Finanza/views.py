@@ -23,7 +23,10 @@ def agregar_gasto_nomina(request):
     if request.method == 'POST':
         form = CrearGastoN(request.POST)
         if form.is_valid():
-            gasto = form.save()
+            gasto = form.save(commit=False)
+            nomina = Nomina_tiene.objects.get(Nomina=gasto.Nomina_tiene.Nomina)
+            gasto.CantG = nomina.Bruto + nomina.Impuesto
+            gasto.save()
             return redirect('ListaMovimientos')
     else:
         form = CrearGastoN()
@@ -36,7 +39,7 @@ def agregar_gasto_productos(request):
         if form.is_valid():
             gasto = form.save(commit=False)
             producto = Producto.objects.get(Prod=gasto.Producto.Prod)
-            gasto.CantG = producto.Precio*3/4 * gasto.CantidadC
+            gasto.CantG = producto.Precio*0.75 * gasto.CantidadC
             gasto.save()
             try:
                 trasladar = contiene(
