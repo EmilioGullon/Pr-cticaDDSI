@@ -40,3 +40,16 @@ body {
     padding: 20px 0;
     text-align: justify;
 }
+
+a {
+    color: rgb(104, 102, 102);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(15, 15, 15);
+}
+
+a:active {
+    color: rgb(211, 211, 207);
+}
