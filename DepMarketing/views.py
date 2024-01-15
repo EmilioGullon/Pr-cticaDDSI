@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView
-from app.models import Socio, Anuncio, Producto
+from app.models import Socio, Anuncio, Producto, compra
 from itertools import chain
 from .forms import SeleccionarProducto, ComprarProd
 # Create your views here.
@@ -218,14 +218,14 @@ def eliminar_el_producto(request, CodigoA, Prod):
 
 def socio_comprar(request, DNIS):
     socio = Socio.objects.get(DNIS=DNIS)
+    compras = compra.objects.all
+    
     if request.method == 'POST':
         form = ComprarProd(request.POST)
         if form.is_valid():
-            compra = form.save(commit=False)
-            compra.DNIS = socio
-            compra.save()
+            form.save()
             return redirect('/marketing_clientes/compra_socio/{}' .format(DNIS))
     else:
         form = ComprarProd()
 
-    return render(request, 'marketing_clientes/compra_socio.html', {'form': form})
+    return render(request, 'marketing_clientes/compra_socio.html', {'form': form, 'socio': socio, 'compras': compras})

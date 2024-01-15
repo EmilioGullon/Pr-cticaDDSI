@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +18,7 @@
             </button>
         </form>
         <h1>Productos comprados</h1>
-        {% for producto in socio.Productos.all %}
+        
             <div class="card">
                 <p></p>
                 <table>
@@ -24,15 +26,25 @@
                         <td id="name">Código</td>
                         <td id="name">Nombre</td>
                         <td id="name">Descripción</td>
+                        <td id="name">Cantidad</td>
+                        <td id="name">Fecha</td>
                     </tr>
-                    <tr>
-                        <td id="info">{{ producto.Prod }}</td>
-                        <td id="info">{{ producto.NombreP }}</td>
-                        <td id="info">{{ producto.DescripcionP }}</td>
-                    </tr>
+                    
+                    {% for compra in compras %}
+                        {% if compra.DNIS.DNIS is socio.DNIS %}
+                            {% for producto in socio.Productos.all %}
+                                <tr>
+                                    <td id="info">{{ producto.Prod }}</td>
+                                    <td id="info">{{ producto.NombreP }}</td>
+                                    <td id="info">{{ producto.DescripcionP }}</td>
+                                    <td id="info">{{ compra.CantidadC }}</td>
+                                    <td id="info">{{ compra.FechaC }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 </table>
             </div>
-        {% endfor %}
     </div>
     </div>
 </body>

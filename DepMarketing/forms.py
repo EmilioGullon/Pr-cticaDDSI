@@ -7,8 +7,9 @@ class SeleccionarProducto(forms.Form):
 class ComprarProd(forms.ModelForm):
     class Meta:
         model = compra
-        fields = ['Prod', 'CantidadC', 'FechaC']
+        fields = ['DNIS', 'Prod', 'CantidadC', 'FechaC']
         labels = {
+            'DNIS': 'DNI del socio',
             'Prod': 'Código del producto',
             'CantidadC': 'Cantidad del producto',
             'FechaC' : 'Fecha de la compra'
