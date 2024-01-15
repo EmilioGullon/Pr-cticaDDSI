@@ -57,8 +57,9 @@ def agregar_nomina(request):
         dni = request.POST['dni']
 
         try:
-            empleado = Empleado.objects.get(DNIE=dni)
-            nom = Nomina_tiene.objects.create(Nomina=num_nomina, Bruto=bruto, Impuesto=impuestos, DNIE=empleado.DNIE)
+            #empleado = Empleado.objects.get(DNIE=dni)
+            empleado = get_object_or_404(Empleado, DNIE=dni)
+            nom = Nomina_tiene.objects.create(Nomina=num_nomina, Bruto=bruto, Impuesto=impuestos, DNIE=empleado)
             agregar_gasto_nomina(nom)
             return redirect('ListaRRHH')
         except Exception as e:
