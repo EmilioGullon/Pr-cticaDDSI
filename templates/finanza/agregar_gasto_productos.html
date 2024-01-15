@@ -1,22 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Gasto Productos</title>
-    <style>
-        form {
-            display: table;
-            width:220px;
-        }
-    </style>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+{% extends "app/base.html" %}
+{% block content %}
 <body>
     <div class="container">
-        <div class="row d-flex justify-content-center align-items-center" style="margin-top: 20px;">
-            <div class="card" style="width: 350px;">
+        <div class="row d-flex justify-content-center align-items-center" style="margin-top: 30px;">
+            <div class="card" style="width: 470px;">
                 <div class="card-body">
                     <h2 class="card-title"  style="text-align: center;">Gasto Productos</h2>
                     <p style="font-size: 4px;">
@@ -30,4 +17,4 @@
         </div>        
     </div>
 </body>
-</html>
+{% endblock %}
