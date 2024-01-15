@@ -21,6 +21,9 @@ class Nomina_tiene(models.Model):
     Impuesto = models.IntegerField(null=False, validators=[MinValueValidator(0)])
     DNIE = models.OneToOneField(Empleado, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.Nomina)
+
 class Producto(models.Model):
     Prod = models.PositiveBigIntegerField(primary_key=True)
     NombreP = models.CharField(max_length=20, null=False)
