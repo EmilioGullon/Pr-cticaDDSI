@@ -1,9 +1,22 @@
-{% extends "app/base.html" %}
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Gasto Nómina</title>
+    <style>
+        form {
+            display: table;
+            width:200px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
 <body>
     <div class="container">
-        <div class="row d-flex justify-content-center align-items-center" style="margin-top: 30px;">
-            <div class="card" style="width: 470px;">
+        <div class="row d-flex justify-content-center align-items-center" style="margin-top: 20px;">
+            <div class="card" style="width: 350px;">
                 <div class="card-body">
                     <h2 class="card-title"  style="text-align: center;">Gasto Nómina</h2>
                     <p style="font-size: 4px;">
@@ -17,4 +30,4 @@
         </div>        
     </div>
 </body>
-{% endblock %}
+</html>

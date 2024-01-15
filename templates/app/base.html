@@ -14,16 +14,17 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href={% url 'home'%} class="navbar-brand" >
                 {% load static %}
-                <img src="{%static 'image/Logo2.jpg'%}" alt="Tu Logo" width="30" height="25">&nbsp&nbsp&nbsp&nbsp
+                <img src="{%static 'image/Logo.jpg'%}" alt="Tu Logo" width="30" height="30">
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            
+
             {% if request.user.is_authenticated %}
-            <li><a href="/finanzas/" class="nav-link px-2 text-white fw-bold">Finanzas  </a></li>&nbsp&nbsp&nbsp
-            <li><a href="/marketing_clientes/" class="nav-link px-2 text-white fw-bold">Marketing y Clientes  </a></li>&nbsp&nbsp&nbsp
-            <li><a href="/rrhh/" class="nav-link px-2 text-white fw-bold">Recursos Humanos  </a></li>&nbsp&nbsp&nbsp
-            <li><a href="/almacenamiento_logistica/" class="nav-link px-2 text-white fw-bold">Almacenamiento y Logística  </a></li>
+            <li><a href={% url 'empleados'%} class="nav-link px-2 text-white">Empleados</a></li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <li><a href="/finanzas/" class="nav-link px-2 text-white">Finanzas</a></li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <li><a href="/marketing_clientes/" class="nav-link px-2 text-white">Marketing y Clientes</a></li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <li><a href="/rrhh/" class="nav-link px-2 text-white">Recursos Humanos</a></li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <li><a href="/almacenamiento_logistica/" class="nav-link px-2 text-white">Almacenamiento y Logística</a></li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             {% else %}
 
             {% endif %}
@@ -45,21 +46,18 @@
     <footer>
     <div class="container">
         <footer class="py-3 my-4">
-
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href={% url 'home'%} class="nav-link px-2 text-muted fw-bold">Home</a></li>
-            {% if request.user.is_authenticated %}
-            <li class="nav-item"><a href={% url 'empleados'%} class="nav-link px-2 text-muted fw-bold">Empleados  </a></li>
-            <li class="nav-item"><a href="/finanzas/" class="nav-link px-2 text-muted fw-bold">Finanzas  </a></li>
-            <li class="nav-item"><a href="/marketing_clientes/" class="nav-link px-2 text-muted fw-bold">Marketing y Clientes  </a></li>
-            <li class="nav-item"><a href="/rrhh/" class="nav-link px-2 text-muted fw-bold">Recursos Humanos  </a></li>
-            <li class="nav-item"><a href="/almacenamiento_logistica/" class="nav-link px-2 text-muted fw-bold">Almacenamiento y Logística  </a></li>
-            {% endif %}
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
             </ul>
             <p class="text-center text-muted">&copy; 2023 Mi Página de Inicio.</p>
         </footer>
         </div>    
     </footer>
+        
     <script src="" async defer></script>
 </body>
 </html>
