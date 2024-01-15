@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from app.models import Almacen, Producto, contiene, Anuncio
-from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ProductoA_EnAlmacen, ModificarProducto, ModificarAlmacen, ModificarCantidad, SeleccionarAnuncio
+from .forms import CrearAlmacen, CrearProducto, BuscarProducto, ModificarProducto, ModificarAlmacen, SeleccionarAnuncio
 
 # Create your views here.
 
@@ -67,17 +67,6 @@ def eliminar_producto(request, Prod):
     producto.delete()
     return redirect('/almacenamiento_logistica/buscar_producto/?consult={}'.format(nombre))
 
-def producto_a_en_almacen(request):
-    if request.method == 'POST':
-        form = ProductoA_EnAlmacen(request.POST)
-        if form.is_valid():
-            contenido = form.save()
-            #almacen = contenido.Alm
-            #return redirect('/almacenamiento_logistica/#contenido_almacen/{}'.format(almacen.Alm))
-            return redirect('/almacenamiento_logistica/almacenes')
-    else:
-        form = ProductoA_EnAlmacen()
-
     return render(request, 'almlog/producto_a_en_almacen.html', {'form': form})
 
 def contenido_almacen(request, Alm):
@@ -108,7 +97,7 @@ def modificar_producto(request, Prod):
     else:
         form = ModificarProducto(instance=producto)
 
-    return render(request, 'almlog/modificar_producto.html', {'form': form})
+    return render(request, 'almlog/modificar_producto.html', {'form': form, 'producto':producto})
 
 def modificar_almacen(request, Alm):
     almacen = get_object_or_404(Almacen, Alm=Alm)
@@ -121,35 +110,7 @@ def modificar_almacen(request, Alm):
     else:
         form = ModificarAlmacen(instance=almacen)
 
-    return render(request, 'almlog/modificar_almacen.html', {'form': form})
-
-def modificar_contiene_almacen(request, Alm, Prod):
-    contenedor = get_object_or_404(contiene, Alm=Alm, Prod=Prod)
-
-    if request.method == 'POST':
-        form = ModificarCantidad(request.POST, instance=contenedor)
-        if form.is_valid():
-            nuevo = form.save()
-            codigo = nuevo.Alm.Alm
-            return redirect('/almacenamiento_logistica/contenido_almacen/{}'.format(codigo))
-    else:
-        form = ModificarCantidad(instance=contenedor)
-
-    return render(request, 'almlog/modificar_contiene.html', {'form': form})
-
-def modificar_contiene_producto(request, Prod, Alm):
-    contenedor = get_object_or_404(contiene, Prod=Prod, Alm=Alm)
-
-    if request.method == 'POST':
-        form = ModificarCantidad(request.POST, instance=contenedor)
-        if form.is_valid():
-            nuevo = form.save()
-            codigo = nuevo.Prod.Prod
-            return redirect('/almacenamiento_logistica/ubicacion_producto/{}'.format(codigo))
-    else:
-        form = ModificarCantidad(instance=contenedor)
-
-    return render(request, 'almlog/modificar_contiene.html', {'form': form})
+    return render(request, 'almlog/modificar_almacen.html', {'form': form, 'almacen':almacen})
 
 def producto_a_anuncio(request, Prod):
     producto = Producto.objects.get(Prod=Prod)

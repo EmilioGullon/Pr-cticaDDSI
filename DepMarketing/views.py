@@ -1,9 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from django import forms
 from django.views.generic import ListView
-from app.models import Socio, Anuncio, Producto, compra
+from app.models import Socio, Anuncio, Producto, compra, Almacen, contiene, Ingreso, produce
 from itertools import chain
-from .forms import SeleccionarProducto
+from .forms import SeleccionarProducto, ComprarProd
 # Create your views here.
 
 class ListaMarketing(ListView):
@@ -161,7 +160,7 @@ def modificar_anuncio(request, CodigoA):
     if request.method == 'POST':
         tipon = request.POST.get('tipo', '')
         descn = request.POST.get('descripcion', '')
-        codigon = request.POST.get('codigo', '')
+        #codigon = request.POST.get('codigo', '')
         locn = request.POST.get('localizacion', '')
         
         try:
@@ -217,24 +216,38 @@ def eliminar_el_producto(request, CodigoA, Prod):
     anuncio.Productos.remove(producto)
     return redirect('/marketing_clientes/insertar_producto/{}'.format(anuncio.CodigoA))
 
-def socio_comprar(request):
+def socio_comprar(request, DNIS):
+    socio = Socio.objects.get(DNIS=DNIS)
+    compras = compra.objects.all
+    
     if request.method == 'POST':
         form = ComprarProd(request.POST)
         if form.is_valid():
-            compra = form.save()
-            return redirect('/marketing_clientes/compra_socio')
+            comp = form.save(commit=False)
+            comp.DNIS = socio
+            stock = contiene.objects.get(Alm=comp.Alm, Prod=comp.Prod)
+            producto = Producto.objects.get(Prod=comp.Prod.Prod)
+            try:
+                stock.CantidadC = stock.CantidadC - comp.CantidadC
+                stock.save()
+                objeto_mayor_ref_pago = Ingreso.objects.order_by('-Ref_pago').first()
+                if objeto_mayor_ref_pago is not None:
+                    ingreso = Ingreso(Ref_pago=objeto_mayor_ref_pago+1, 
+                                      Emisor=socio.DNIS, TipoI='Compra', 
+                                      CantI=comp.CantidadC*producto.Precio*5/4)
+                    ingreso.save()
+                else:
+                    ingreso = Ingreso(Ref_pago=0, 
+                                      Emisor=socio.DNIS, TipoI='Compra', 
+                                      CantI=comp.CantidadC*producto.Precio)
+                    ingreso.save()
+                comp.save()
+                conexion = produce(Ref_pago=ingreso, Compra=comp)
+                conexion.save()
+            except Exception as e:
+                f"Error"
+            return redirect('/marketing_clientes/compra_socio/{}' .format(DNIS))
     else:
         form = ComprarProd()
 
-    return render(request, 'marketing_clientes/compra_socio.html', {'form': form})
-
-class ComprarProd(forms.ModelForm):
-    class Meta:
-        model = compra
-        fields = ['Prod', 'DNIS', 'CantidadC', 'FechaC']
-        labels = {
-            'DNIS': 'DNI del socio',
-            'Prod': 'Código del producto',
-            'CantidadC': 'Cantidad del producto',
-            'FechaC' : 'Fecha de la compra'
-        }
+    return render(request, 'marketing_clientes/compra_socio.html', {'form': form, 'socio': socio, 'compras': compras})

@@ -13,7 +13,7 @@
 </head>
 <body>
     <div>
-        <h1>Modificar producto</h1>
+        <h1>Modificar producto {{ producto.Prod }}</h1>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}

@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Ingreso</title>
+    <title>Modificar Gasto {{ gasto.Num_factura }}</title>
     <style>
         form {
             display: table;
-            width:180px;
+            width:200px;
         }
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -18,12 +18,12 @@
         <div class="row d-flex justify-content-center align-items-center" style="margin-top: 20px;">
             <div class="card" style="width: 350px;">
                 <div class="card-body">
-                    <h2 class="card-title"  style="text-align: center;">Ingreso</h2>
+                    <h2 class="card-title"  style="text-align: center;">Modificar Gasto {{ gasto.Num_factura }}</h2>
                     <p style="font-size: 4px;">
                     <form method="POST">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button class="btn btn-primary">Agregar</button>
+                        <button class="btn btn-primary">Modificar</button>
                     </form>
                 </div>
             </div>
