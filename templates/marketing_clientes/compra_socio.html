@@ -9,7 +9,7 @@
 </head>
 <body>
     <div>
-        <h1>Asignar producto comprado a un socio</h1>
+        <h1>Asignar producto comprado al socio {{ socio.NombreS }}</h1>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}

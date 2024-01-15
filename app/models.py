@@ -77,7 +77,7 @@ class Almacen(models.Model):
 
 class compra(models.Model):
     Prod = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    DNIS = models.ForeignKey(Socio, on_delete=models.CASCADE)
+    DNIS = models.ForeignKey(Socio, on_delete=models.CASCADE, null=True)
     FechaC = models.DateField(default=timezone.now, null=False)
     CantidadC = models.PositiveIntegerField()
 

@@ -223,7 +223,12 @@ def socio_comprar(request, DNIS):
     if request.method == 'POST':
         form = ComprarProd(request.POST)
         if form.is_valid():
-            form.save()
+            c = form.save(commit=False)
+            c.DNIS = socio
+            try:
+                c.save()
+            except Exception as e:
+                f"Error: ya existe un producto comprado en esta fecha por este socio."
             return redirect('/marketing_clientes/compra_socio/{}' .format(DNIS))
     else:
         form = ComprarProd()
