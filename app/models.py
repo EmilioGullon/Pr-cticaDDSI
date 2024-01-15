@@ -13,7 +13,7 @@ class Empleado(models.Model):
     TelefonoE = models.PositiveIntegerField(null=False, unique=True, validators=[MinLengthValidator(limit_value=9)])
    
     def __str__(self):
-        return self.nombre
+        return str(self.DNIE)
     
 class Nomina_tiene(models.Model):
     Nomina = models.BigIntegerField(primary_key=True)
