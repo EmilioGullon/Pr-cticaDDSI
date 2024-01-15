@@ -225,9 +225,9 @@ def socio_comprar(request, DNIS):
         if form.is_valid():
             comp = form.save(commit=False)
             comp.DNIS = socio
-            stock = contiene.objects.get(Alm=comp.Alm, Prod=comp.Prod)
-            producto = Producto.objects.get(Prod=comp.Prod.Prod)
             try:
+                stock = contiene.objects.get(Alm=comp.Alm, Prod=comp.Prod)
+                producto = Producto.objects.get(Prod=comp.Prod.Prod)
                 stock.CantidadC = stock.CantidadC - comp.CantidadC
                 stock.save()
                 objeto_mayor_ref_pago = Ingreso.objects.order_by('-Ref_pago').first()
