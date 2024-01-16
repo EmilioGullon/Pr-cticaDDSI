@@ -1,5 +1,7 @@
 # Proyecto de Clase: Creación de un Diagrama SQL y su Integración en una Página Web con Django
 
+![Texto alternativo](/static/image/Ej_inicio.png)
+
 ## Descripción
 Este proyecto forma parte de un curso académico y tiene como objetivo principal la creación de un diagrama SQL que represente la estructura de una base de datos. Además, exploraremos cómo integrar este diagrama en una página web utilizando el framework Django.
 
