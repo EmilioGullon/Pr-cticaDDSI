@@ -218,7 +218,6 @@ def eliminar_el_producto(request, CodigoA, Prod):
 
 def socio_comprar(request, DNIS):
     socio = Socio.objects.get(DNIS=DNIS)
-    compras = compra.objects.all
     
     if request.method == 'POST':
         form = ComprarProd(request.POST)
@@ -230,24 +229,27 @@ def socio_comprar(request, DNIS):
                 producto = Producto.objects.get(Prod=comp.Prod.Prod)
                 stock.CantidadC = stock.CantidadC - comp.CantidadC
                 stock.save()
-                objeto_mayor_ref_pago = Ingreso.objects.order_by('-Ref_pago').first()
-                if objeto_mayor_ref_pago is not None:
-                    ingreso = Ingreso(Ref_pago=objeto_mayor_ref_pago+1, 
+                comp.save()
+                ingresos = Ingreso.objects.all()
+                if ingresos.exists():
+                    mayor_cod_ingreso = Ingreso.objects.order_by('-Ref_pago').first()
+                    ingreso = Ingreso(Ref_pago=mayor_cod_ingreso.Ref_pago+1, 
                                       Emisor=socio.DNIS, TipoI='Compra', 
-                                      CantI=comp.CantidadC*producto.Precio*5/4)
+                                      CantI=comp.CantidadC*producto.Precio)
                     ingreso.save()
+                    conexion = produce(Ref_pago=ingreso, Compra=comp)
+                    conexion.save()
                 else:
                     ingreso = Ingreso(Ref_pago=0, 
                                       Emisor=socio.DNIS, TipoI='Compra', 
                                       CantI=comp.CantidadC*producto.Precio)
                     ingreso.save()
-                comp.save()
-                conexion = produce(Ref_pago=ingreso, Compra=comp)
-                conexion.save()
+                    conexion = produce(Ref_pago=ingreso, Compra=comp)
+                    conexion.save()
             except Exception as e:
                 f"Error"
             return redirect('/marketing_clientes/compra_socio/{}' .format(DNIS))
     else:
         form = ComprarProd()
 
-    return render(request, 'marketing_clientes/compra_socio.html', {'form': form, 'socio': socio, 'compras': compras})
+    return render(request, 'marketing_clientes/compra_socio.html', {'form': form, 'socio': socio})

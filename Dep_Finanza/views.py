@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404
+from django.db import transaction
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
-from app.models import Ingreso, Gasto, GastoN, GastoP, Nomina_tiene, Producto, contiene
+from app.models import Ingreso, Gasto, GastoN, GastoP, Nomina_tiene, Producto, contiene, Almacen, Producto
 from itertools import chain
 from .forms import CrearGastoN, CrearGastoP, CrearIngreso, ModificarGastoN, ModificarGastoP, ModificarIngreso
 # Create your views here.
@@ -39,7 +40,7 @@ def agregar_gasto_productos(request):
         if form.is_valid():
             gasto = form.save(commit=False)
             producto = Producto.objects.get(Prod=gasto.Producto.Prod)
-            gasto.CantG = producto.Precio*0.75 * gasto.CantidadC
+            gasto.CantG = producto.Precio*3/4 * gasto.CantidadC
             gasto.save()
             try:
                 trasladar = contiene(
@@ -88,22 +89,50 @@ def modificar_gasto_nomina(request, Num_factura):
     gasto = get_object_or_404(GastoN, Num_factura=Num_factura)
 
     if request.method == 'POST':
-        form = ModificarGastoP(request.POST, instance=gasto)
+        form = ModificarGastoN(request.POST, instance=gasto)
         if form.is_valid():
             form.save()
             return redirect('ListaMovimientos')
     else:
-        form = ModificarGastoP(instance=gasto)
+        form = ModificarGastoN(instance=gasto)
 
     return render(request, 'finanza/modificar_gasto.html', {'form': form, 'gasto': gasto})
 
 def modificar_gasto_productos(request, Num_factura):
     gasto = get_object_or_404(GastoP, Num_factura=Num_factura)
+    producto_anterior = get_object_or_404(Producto, Prod=gasto.Producto.Prod)
+    alm_anterior = get_object_or_404(Almacen, Alm=gasto.Almacen.Alm)
+    cant_anterior = gasto.CantidadC
 
     if request.method == 'POST':
         form = ModificarGastoP(request.POST, instance=gasto)
         if form.is_valid():
-            form.save()
+            cambio = form.save(commit=False)
+            producto = Producto.objects.get(Prod=gasto.Producto.Prod)
+            cambio.CantG = producto.Precio*3/4 * gasto.CantidadC
+            trasladar = contiene(
+                Prod = cambio.Producto,
+                Alm = cambio.Almacen,
+                CantidadC = cambio.CantidadC)
+            trasladar_anterior = get_object_or_404(contiene, Prod=producto_anterior, Alm=alm_anterior)
+            try:
+                with transaction.atomic():
+                    trasladar.save()
+                    trasladar_anterior.CantidadC-=cant_anterior
+                    trasladar_anterior.save()
+                    cambio.save()
+            except Exception as e:
+                try:
+                    with transaction.atomic():
+                        conexion = contiene.objects.get(Prod=gasto.Producto, Alm=gasto.Almacen)
+                        conexion.CantidadC += gasto.CantidadC
+                        conexion.save()
+                        conexion_anterior = get_object_or_404(contiene, Prod=producto_anterior, Alm=alm_anterior)
+                        conexion_anterior.CantidadC-=cant_anterior
+                        conexion_anterior.save()
+                        cambio.save()
+                except:
+                    print("Error")
             return redirect('ListaMovimientos')
     else:
         form = ModificarGastoP(instance=gasto)

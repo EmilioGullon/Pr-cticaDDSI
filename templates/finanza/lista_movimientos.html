@@ -17,63 +17,6 @@
                         </thead>
                         <tbody>
                             {% for gasto in movimientos.gastosN %}
-                                <!-- Delete Modal -->
-                                <div id="deleteModal" class="modal" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h6 class="modal-title">¿Estás seguro de que quieres eliminar este elemento?</h6>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cancelDelete()"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelDelete()">Cancelar</button>
-                                                <button type="button" class="btn btn-primary" onclick="deleteItem()">Sí, eliminar</button>            
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <script>
-                                    var itemToDelete;
-
-                                    function confirmDelete(item) {
-                                        itemToDelete = item;
-                                        document.getElementById('deleteModal').style.display = 'block';
-                                    }
-
-                                    function deleteItem() {
-                                        if (itemToDelete) {
-                                            fetch('/finanzas/eliminar_gasto_nomina/' + itemToDelete + '/')
-                                                .then(response => {
-                                                    if (response.ok) {
-                                                        //alert('Elemento ' + itemToDelete + ' eliminado.');
-                                                        // Puedes actualizar la página o realizar alguna otra acción después de la eliminación
-                                                        location.reload();
-                                                    } else {
-                                                        alert('Error al eliminar el elemento.');
-                                                    }
-                                                    // Ocultar el modal después de la confirmación
-                                                    document.getElementById('deleteModal').style.display = 'none';
-                                                })
-                                                .catch(error => {
-                                                    console.error('Error al eliminar el elemento:', error);
-                                                    alert('Error al eliminar el elemento.');
-                                                    // Ocultar el modal después de la confirmación
-                                                    document.getElementById('deleteModal').style.display = 'none';
-                                                });
-                                        } else {
-                                            console.error('Error: itemToDelete no tiene un valor válido.');
-                                            alert('Error al eliminar el elemento.');
-                                            // Ocultar el modal después de la confirmación
-                                            document.getElementById('deleteModal').style.display = 'none';
-                                        }
-                                    }
-
-                                    function cancelDelete() {
-                                        // Cancelar la eliminación, simplemente ocultar el modal
-                                        document.getElementById('deleteModal').style.display = 'none';
-                                    }
-                                </script>
                                 <tr>
                                     <td>{{ gasto.Num_factura }}</td>
                                     <td>{{ gasto.Receptor }}</td>
@@ -82,9 +25,7 @@
                                         <a class="button delete-button" href="{% url 'modificar_gasto_nomina' Num_factura=gasto.Num_factura %}">
                                             ✏️
                                         </a>&nbsp&nbsp
-                                        <a class="button delete-button" onclick="confirmDelete('{{ gasto.Num_factura }}')">
-                                            <button type="button" class="btn btn-danger btn-sm">X</button>
-                                        </a>
+                                        <a class="btn btn-danger btn-sm" onclick="confirmDelete('{{ gasto.Num_factura }}', '/finanzas/eliminar_gasto_nomina/')">X</a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -110,63 +51,6 @@
                         </thead>
                         <tbody>
                             {% for gasto in movimientos.gastosP %}
-                            <!-- Delete Modal -->
-                            <div id="deleteModal" class="modal" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h6 class="modal-title">¿Estás seguro de que quieres eliminar este elemento?</h6>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cancelDelete()"></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelDelete()">Cancelar</button>
-                                            <button type="button" class="btn btn-primary" onclick="deleteItem()">Sí, eliminar</button>            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                                var itemToDelete;
-
-                                function confirmDelete(item) {
-                                    itemToDelete = item;
-                                    document.getElementById('deleteModal').style.display = 'block';
-                                }
-
-                                function deleteItem() {
-                                    if (itemToDelete) {
-                                        fetch('/finanzas/eliminar_gasto_productos/' + itemToDelete + '/')
-                                            .then(response => {
-                                                if (response.ok) {
-                                                    //alert('Elemento ' + itemToDelete + ' eliminado.');
-                                                    // Puedes actualizar la página o realizar alguna otra acción después de la eliminación
-                                                    location.reload();
-                                                } else {
-                                                    alert('Error al eliminar el elemento.');
-                                                }
-                                                // Ocultar el modal después de la confirmación
-                                                document.getElementById('deleteModal').style.display = 'none';
-                                            })
-                                            .catch(error => {
-                                                console.error('Error al eliminar el elemento:', error);
-                                                alert('Error al eliminar el elemento.');
-                                                // Ocultar el modal después de la confirmación
-                                                document.getElementById('deleteModal').style.display = 'none';
-                                            });
-                                    } else {
-                                        console.error('Error: itemToDelete no tiene un valor válido.');
-                                        alert('Error al eliminar el elemento.');
-                                        // Ocultar el modal después de la confirmación
-                                        document.getElementById('deleteModal').style.display = 'none';
-                                    }
-                                }
-
-                                function cancelDelete() {
-                                    // Cancelar la eliminación, simplemente ocultar el modal
-                                    document.getElementById('deleteModal').style.display = 'none';
-                                }
-                            </script>
                             <tr>
                                 <td>{{ gasto.Num_factura }}</td>
                                 <td>{{ gasto.Receptor }}</td>
@@ -175,7 +59,7 @@
                                     <a class="button delete-button" href="{% url 'modificar_gasto_productos' Num_factura=gasto.Num_factura %}">
                                         ✏️
                                     </a>&nbsp&nbsp
-                                    <a class="button delete-button" onclick="confirmDelete('{{ gasto.Num_factura }}')">
+                                    <a class="button delete-button" onclick="confirmDelete('{{ gasto.Num_factura }}', '/finanzas/eliminar_gasto_productos/')">
                                         <button type="button" class="btn btn-danger btn-sm">X</button>
                                     </a>
                                 </td>
@@ -203,63 +87,6 @@
                         </thead>
                         <tbody>
                             {% for ingreso in movimientos.ingresos %}
-                            <!-- Delete Modal -->
-                            <div id="deleteModal" class="modal" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h6 class="modal-title">¿Estás seguro de que quieres eliminar este elemento?</h6>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cancelDelete()"></button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelDelete()">Cancelar</button>
-                                            <button type="button" class="btn btn-primary" onclick="deleteItem()">Sí, eliminar</button>            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                                var itemToDelete;
-
-                                function confirmDelete(item) {
-                                    itemToDelete = item;
-                                    document.getElementById('deleteModal').style.display = 'block';
-                                }
-
-                                function deleteItem() {
-                                    if (itemToDelete) {
-                                        fetch('/finanzas/eliminar_ingreso/' + itemToDelete + '/')
-                                            .then(response => {
-                                                if (response.ok) {
-                                                    //alert('Elemento ' + itemToDelete + ' eliminado.');
-                                                    // Puedes actualizar la página o realizar alguna otra acción después de la eliminación
-                                                    location.reload();
-                                                } else {
-                                                    alert('Error al eliminar el elemento.');
-                                                }
-                                                // Ocultar el modal después de la confirmación
-                                                document.getElementById('deleteModal').style.display = 'none';
-                                            })
-                                            .catch(error => {
-                                                console.error('Error al eliminar el elemento:', error);
-                                                alert('Error al eliminar el elemento.');
-                                                // Ocultar el modal después de la confirmación
-                                                document.getElementById('deleteModal').style.display = 'none';
-                                            });
-                                    } else {
-                                        console.error('Error: itemToDelete no tiene un valor válido.');
-                                        alert('Error al eliminar el elemento.');
-                                        // Ocultar el modal después de la confirmación
-                                        document.getElementById('deleteModal').style.display = 'none';
-                                    }
-                                }
-
-                                function cancelDelete() {
-                                    // Cancelar la eliminación, simplemente ocultar el modal
-                                    document.getElementById('deleteModal').style.display = 'none';
-                                }
-                            </script>
                             <tr>
                                 <td>{{ ingreso.Ref_pago }}</td>
                                 <td>{{ ingreso.Emisor }}</td>
@@ -268,7 +95,7 @@
                                     <a class="button delete-button" href="{% url 'modificar_ingreso' Ref_pago=ingreso.Ref_pago %}">
                                         ✏️
                                     </a>&nbsp&nbsp
-                                    <a class="button delete-button" onclick="confirmDelete('{{ ingreso.Ref_pago }}')">
+                                    <a class="button delete-button" onclick="confirmDelete('{{ ingreso.Ref_pago }}', '/finanzas/eliminar_ingreso/')">
                                         <button type="button" class="btn btn-danger btn-sm">X</button>
                                     </a>
                                 </td>
@@ -281,6 +108,65 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">¿Estás seguro de que quieres eliminar este elemento?</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cancelDelete()"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelDelete()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="deleteItem()">Sí, eliminar</button>            
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var itemToDelete;
+
+        function confirmDelete(item, url) {
+            itemToDelete = item;
+            urlToDelete = url;
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function deleteItem() {
+            if (itemToDelete) {
+                fetch( urlToDelete + itemToDelete + '/')
+                    .then(response => {
+                        if (response.ok) {
+                            //alert('Elemento ' + itemToDelete + ' eliminado.');
+                            // Puedes actualizar la página o realizar alguna otra acción después de la eliminación
+                            location.reload();
+                        } else {
+                            alert('Error al eliminar el elemento.');
+                        }
+                        // Ocultar el modal después de la confirmación
+                        document.getElementById('deleteModal').style.display = 'none';
+                    })
+                    .catch(error => {
+                        console.error('Error al eliminar el elemento:', error);
+                        alert('Error al eliminar el elemento.');
+                        // Ocultar el modal después de la confirmación
+                        document.getElementById('deleteModal').style.display = 'none';
+                    });
+            } else {
+                console.error('Error: itemToDelete no tiene un valor válido.');
+                alert('Error al eliminar el elemento.');
+                // Ocultar el modal después de la confirmación
+                document.getElementById('deleteModal').style.display = 'none';
+            }
+        }
+
+        function cancelDelete() {
+            // Cancelar la eliminación, simplemente ocultar el modal
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+    </script>
 
 </body>
 {% endblock %}
